@@ -17,6 +17,8 @@ const SearchComponent = () => {
   const [photoData, setPhotoData] = useState<UnsplashImage[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [error, setError] = useState<string | null>(null); // Error state
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toLowerCase();
@@ -28,6 +30,7 @@ const SearchComponent = () => {
   const fetchData = async () => {
     // const url = `https://api.unsplash.com/photos/?client_id=${apiKey}`
     setLoading(true);
+    setError(null);  // Reset error state before new fetch
 
     const url = `https://api.unsplash.com/search/photos?query=${searchQuery}&per_page=10&client_id=${apiKey}`;
 
@@ -40,6 +43,8 @@ const SearchComponent = () => {
 
       console.log(data.results);
     } catch (error) {
+        setError('Failed to fetch images. Please try again later.');
+
       console.error("error fetching data", error);
     } finally {
       setLoading(false);
@@ -54,7 +59,7 @@ const SearchComponent = () => {
   return (
     <div className="w-full max-w-[800px] p-4">
 
-      {/* <form
+      <form
         onSubmit={handleSearch}
         className="mx-auto flex max-w-[500px] items-center gap-2"
       >
@@ -70,6 +75,9 @@ const SearchComponent = () => {
         </Button>
       </form>
 
+      {error && <p>{error}</p>}        {/* Display error message */}
+
+
       <ul className="mt-4 flex flex-wrap">
         {photoData.length > 0 &&
           photoData.map((item) => (
@@ -82,7 +90,7 @@ const SearchComponent = () => {
               ></Image>
             </li>
           ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };
