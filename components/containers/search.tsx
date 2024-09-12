@@ -8,6 +8,8 @@ interface UnsplashImage {
   description: string | null;
   urls: {
     small: string;
+    full: string;
+    regular: string;
   };
 }
 
@@ -50,7 +52,7 @@ const SearchComponent = () => {
   };
 
   return (
-    <div className="w-full max-w-[1000px] p-4">
+    <div className="w-full max-w-[800px] p-4">
 
       <form
         onSubmit={handleSearch}
@@ -73,10 +75,10 @@ const SearchComponent = () => {
           photoData.map((item) => (
             <li key={item.id} className="mt-2">
               <Image
-                src={item.urls.small}
+                src={item.urls.regular}
                 alt="hello"
-                width={500}
-                height={500}
+                width={800}
+                height={800}
               ></Image>
             </li>
           ))}
