@@ -1,4 +1,3 @@
-import localFont from "next/font/local";
 import SearchComponent from "@/components/containers/search";
 
 // const geistSans = localFont({
