@@ -54,7 +54,7 @@ const SearchComponent = () => {
   return (
     <div className="w-full max-w-[800px] p-4">
 
-      <form
+      {/* <form
         onSubmit={handleSearch}
         className="mx-auto flex max-w-[500px] items-center gap-2"
       >
@@ -82,7 +82,7 @@ const SearchComponent = () => {
               ></Image>
             </li>
           ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
