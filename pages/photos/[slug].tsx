@@ -1,18 +1,8 @@
-import React, { useEffect, useState } from "react";
-import {
-  GetStaticProps,
-  GetStaticPaths,
-  GetServerSideProps,
-} from "next";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
-import { decode } from "blurhash";
-
 
 interface UnsplashImage {
-
-  
   id: string;
   description: string | null;
   urls: {
@@ -30,58 +20,40 @@ interface PhotoDetailProps {
   error: string | null;
 }
 
-const PhotoDetail: React.FC <PhotoDetailProps> = ({photoData, error}) => {
-
+const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  
 
   const handleLoad = () => {
-
     setLoading(true);
-
-  }
+  };
 
   if (error) {
     return <div>{error}</div>;
   }
 
-  
-
   return (
     <>
-
       <ul className="mt-4 flex flex-wrap px-2">
         {photoData.length > 0 &&
           photoData.map((item) => (
-            <li key={item.id} className='mt-2'>
-
+            <li key={item.id} className="mt-2">
               {/* {loading ?   (   <div className="bg-red-500" style={{ width: `${item.width}px`, height: `${item.height}px` }}> */}
               {/* </div> */}
-              
-            
-            {/* ) : ( */}
+
+              {/* ) : ( */}
 
               <Image
-              src={item.urls.regular}
-              alt="hello"
-              width={item.width}
-              className={`${!loading ? 'animate-pulse' : ''} bg-slate-200`}
-              height={item.height}
-              onLoad={handleLoad}
-            ></Image>
+                src={item.urls.regular}
+                alt="hello"
+                width={item.width}
+                className={`${!loading ? "animate-pulse" : ""} bg-slate-200`}
+                height={item.height}
+                onLoad={handleLoad}
+              ></Image>
 
-            {/* ) */}
-              
-            
-            
-            {/* } */}
-            
+              {/* ) */}
 
-            
-
-
-
-             
+              {/* } */}
             </li>
           ))}
       </ul>
@@ -115,4 +87,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
-
