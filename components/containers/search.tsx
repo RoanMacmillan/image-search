@@ -14,8 +14,7 @@ const SearchComponent = () => {
     setSearchQuery(inputValue);
   };
 
-  const handleCategory = (e: any, category: string) => {
-    e.preventDefault();
+  const handleCategory = ( category: string) => {
     console.log(category);
 
     router.push(`/photos/${encodeURIComponent(category)}`);
@@ -54,8 +53,9 @@ const SearchComponent = () => {
         {buttons.map((btn, index) => (
           <li key={index}>
             <Button
-              onClick={(e) => handleCategory(e, btn)}
+              onClick={(e) => handleCategory(btn)}
               variant={"secondary"}
+              type='button'
             >
               {btn}
             </Button>
