@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
-
+import Link from "next/link";
 interface UnsplashImage {
   id: string;
   description: string | null;
@@ -13,6 +13,7 @@ interface UnsplashImage {
   blur_hash: string;
   width: number;
   height: number;
+  slug: string;
 }
 
 interface PhotoDetailProps {
@@ -23,9 +24,12 @@ interface PhotoDetailProps {
 const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
+
   const handleLoad = () => {
     setLoading(true);
   };
+
+ 
 
   if (error) {
     return <div>{error}</div>;
@@ -33,23 +37,25 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
 
   return (
     <>
-      <ul className="mt-4 flex flex-wrap px-2">
+      <ul className="mt-4 flex flex-wrap gap-2 justify-center px-2">
         {photoData.length > 0 &&
           photoData.map((item) => (
-            <li key={item.id} className="mt-2">
+            <li key={item.id} className="">
               {/* {loading ?   (   <div className="bg-red-500" style={{ width: `${item.width}px`, height: `${item.height}px` }}> */}
               {/* </div> */}
 
               {/* ) : ( */}
-
+              <Link href={`/photos/${item.id}`}>
               <Image
                 src={item.urls.regular}
                 alt="hello"
-                width={item.width}
+                width={500}
                 className={`${!loading ? "animate-pulse" : ""} bg-slate-200`}
-                height={item.height}
+                height={500}
                 onLoad={handleLoad}
               ></Image>
+
+              </Link>
 
               {/* ) */}
 
@@ -64,9 +70,9 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
 export default PhotoDetail;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { slug } = context.params!;
+  const { id } = context.params!;
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-  const url = `https://api.unsplash.com/search/photos?query=${slug}&per_page=3&client_id=${apiKey}`;
+  const url = `https://api.unsplash.com/search/photos?query=${id}&per_page=3&client_id=${apiKey}`;
 
   try {
     const response = await fetch(url);

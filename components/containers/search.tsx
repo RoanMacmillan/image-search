@@ -15,7 +15,7 @@ const SearchComponent = () => {
   const handleCategory = ( category: string) => {
     console.log(category);
 
-    router.push(`/photos/${encodeURIComponent(category)}`);
+    router.push(`/s/photos/${encodeURIComponent(category.toLowerCase())}`);
   };
 
   const handleSearch = (e: React.FormEvent): void => {
@@ -23,7 +23,7 @@ const SearchComponent = () => {
     // fetchData();
 
     if (searchQuery.trim() !== "") {
-      router.push(`/photos/${encodeURIComponent(searchQuery)}`);
+      router.push(`/s/photos/${encodeURIComponent(searchQuery)}`);
     }
 
     console.log("form submitted");
@@ -51,7 +51,7 @@ const SearchComponent = () => {
         {buttons.map((btn, index) => (
           <li key={index}>
             <Button
-              onClick={(e) => handleCategory(btn)}
+              onClick={() => handleCategory(btn)}
               variant={"secondary"}
               type='button'
             >
