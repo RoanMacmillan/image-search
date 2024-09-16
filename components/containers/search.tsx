@@ -1,64 +1,39 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Image from "next/image";
-
-interface UnsplashImage {
-  id: string;
-  description: string | null;
-  urls: {
-    small: string;
-    full: string;
-    regular: string;
-  };
-}
+import { useRouter } from "next/router";
+import { setServers } from "dns";
 
 const SearchComponent = () => {
-  const [photoData, setPhotoData] = useState<UnsplashImage[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [error, setError] = useState<string | null>(null); // Error state
-
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toLowerCase();
     setSearchQuery(inputValue);
-    console.log(`input: ${inputValue}`);
-    console.log(`State: ${searchQuery}`);
   };
 
-  const fetchData = async () => {
-    // const url = `https://api.unsplash.com/photos/?client_id=${apiKey}`
-    setLoading(true);
-    setError(null);  // Reset error state before new fetch
+  const handleCategory = (e: any, category: string) => {
+    e.preventDefault();
+    console.log(category);
 
-    const url = `https://api.unsplash.com/search/photos?query=${searchQuery}&per_page=10&client_id=${apiKey}`;
-
-    try {
-      const response = await fetch(url);
-
-      const data = await response.json();
-
-      setPhotoData(data.results);
-
-      console.log(data.results);
-    } catch (error) {
-        setError('Failed to fetch images. Please try again later.');
-
-      console.error("error fetching data", error);
-    } finally {
-      setLoading(false);
-    }
+    router.push(`/photos/${encodeURIComponent(category)}`);
   };
 
   const handleSearch = (e: React.FormEvent): void => {
     e.preventDefault();
-    fetchData();
+    // fetchData();
+
+    if (searchQuery.trim() !== "") {
+      router.push(`/photos/${encodeURIComponent(searchQuery)}`);
+    }
+
+    console.log("form submitted");
   };
 
   return (
     <div className="w-full max-w-[800px] p-4">
-
       <form
         onSubmit={handleSearch}
         className="mx-auto flex max-w-[500px] items-center gap-2"
@@ -71,25 +46,21 @@ const SearchComponent = () => {
           value={searchQuery}
         ></Input>
         <Button type="submit" variant={"default"}>
-          {loading ? "Loading..." : "Search"}
+          Search
         </Button>
       </form>
 
-      {error && <p>{error}</p>}        {/* Display error message */}
-
-
-      <ul className="mt-4 flex flex-wrap">
-        {photoData.length > 0 &&
-          photoData.map((item) => (
-            <li key={item.id} className="mt-2">
-              <Image
-                src={item.urls.regular}
-                alt="hello"
-                width={800}
-                height={800}
-              ></Image>
-            </li>
-          ))}
+      <ul className="mt-4 w-full mx-auto max-w-[500px] flex flex-wrap gap-2">
+        {buttons.map((btn, index) => (
+          <li key={index}>
+            <Button
+              onClick={(e) => handleCategory(e, btn)}
+              variant={"secondary"}
+            >
+              {btn}
+            </Button>
+          </li>
+        ))}
       </ul>
     </div>
   );
@@ -97,4 +68,4 @@ const SearchComponent = () => {
 
 export default SearchComponent;
 
-const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+const buttons = ["Interior", "Nature", "Ocean", "Beach", "Food"];
