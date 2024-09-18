@@ -37,7 +37,7 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
 
   return (
     <>
-      <ul className="mt-4 flex flex-wrap gap-2 justify-center px-2">
+      <ul className="mt-4 flex flex-col gap-2 justify-center px-2">
         {photoData.length > 0 &&
           photoData.map((item) => (
             <li key={item.id} className="">

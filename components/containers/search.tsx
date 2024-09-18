@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useRouter } from "next/router";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 const SearchComponent = () => {
   const router = useRouter();
@@ -12,7 +13,7 @@ const SearchComponent = () => {
     setSearchQuery(inputValue);
   };
 
-  const handleCategory = ( category: string) => {
+  const handleCategory = (category: string) => {
     console.log(category);
 
     router.push(`/s/photos/${encodeURIComponent(category.toLowerCase())}`);
@@ -30,24 +31,28 @@ const SearchComponent = () => {
   };
 
   return (
-    <div className="w-full max-w-[800px] p-4">
+    <div className="w-full">
       <form
         onSubmit={handleSearch}
-        className="mx-auto flex max-w-[500px] items-center gap-2"
+        className="relative mx-auto flex items-center gap-2"
       >
+        <button className="absolute left-[10px]" type="submit">
+          <MagnifyingGlassIcon></MagnifyingGlassIcon>
+        </button>
+
         <Input
-          className=""
+          className="pl-8"
           type="text"
           placeholder="Search for an image..."
           onChange={handleChange}
           value={searchQuery}
         ></Input>
-        <Button type="submit" variant={"default"}>
+        {/* <Button type="submit" variant={"default"}>
           Search
-        </Button>
+        </Button> */}
       </form>
 
-      <ul className="mt-4 w-full mx-auto max-w-[500px] flex flex-wrap gap-2">
+      {/* <ul className="mt-4 w-full mx-auto max-w-[500px] flex flex-wrap gap-2">
         {buttons.map((btn, index) => (
           <li key={index}>
             <Button
@@ -59,7 +64,7 @@ const SearchComponent = () => {
             </Button>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
