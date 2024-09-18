@@ -1,3 +1,5 @@
+import Layout from "@/components/containers/layout";
+import Nav from "@/components/containers/nav";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import React from "react";
@@ -21,7 +23,8 @@ interface PhotoDetailPageProps {
 
 const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({ photoData }) => {
   return (
-    <div className="p-4">
+      <Layout title="Photos" >
+        <Nav></Nav>
       <Image
         src={photoData.urls.regular}
         alt={photoData.description || "Unsplash Image"}
@@ -31,7 +34,7 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({ photoData }) => {
       />
       <p className="mt-4">{photoData.description || "No description available"}</p>
       {/* <div className="bg-red-400 w-[50px] h-[50px]"></div> */}
-    </div>
+    </Layout>
   );
 };
 

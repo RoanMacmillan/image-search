@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = 'My App' }) => {
       <header>
         {/* <Nav /> */}
       </header>
-      <main className={` ${pathname === '/' ? 'mt-[84px] lg:mt-[108px]' : 'mt-[109px] lg:mt-[145px]'}`}>
+      <main className={` ${pathname === '/' ? ' lg:mt-[175px]' : ' lg:mt-[145px]'}`}>
         {children}
       </main>
       <footer>

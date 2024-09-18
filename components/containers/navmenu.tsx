@@ -15,7 +15,7 @@ export function PopoverDemo() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className="" variant="ghost">
+        <Button className="" variant="secondary">
           <span className="sr-only">Menu</span>
           <HamburgerMenuIcon stroke="#000" strokeWidth={"0.5px"}></HamburgerMenuIcon>
         </Button>

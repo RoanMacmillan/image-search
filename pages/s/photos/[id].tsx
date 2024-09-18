@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Layout from "@/components/containers/layout";
+import Nav from "@/components/containers/nav";
 interface UnsplashImage {
   id: string;
   description: string | null;
@@ -37,6 +39,8 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
 
   return (
     <>
+    <Layout title='search'>
+      <Nav></Nav>
       <ul className="mt-4 flex flex-col gap-2 justify-center px-2">
         {photoData.length > 0 &&
           photoData.map((item) => (
@@ -63,6 +67,7 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
             </li>
           ))}
       </ul>
+      </Layout>
     </>
   );
 };

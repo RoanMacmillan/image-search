@@ -13,11 +13,7 @@ const SearchComponent = () => {
     setSearchQuery(inputValue);
   };
 
-  const handleCategory = (category: string) => {
-    console.log(category);
-
-    router.push(`/s/photos/${encodeURIComponent(category.toLowerCase())}`);
-  };
+ 
 
   const handleSearch = (e: React.FormEvent): void => {
     e.preventDefault();
@@ -41,7 +37,7 @@ const SearchComponent = () => {
         </button>
 
         <Input
-          className="pl-8"
+          className="pl-8 bg-gray-100 border-gray-100 h-10 rounded-xl"
           type="text"
           placeholder="Search for an image..."
           onChange={handleChange}
@@ -52,23 +48,10 @@ const SearchComponent = () => {
         </Button> */}
       </form>
 
-      {/* <ul className="mt-4 w-full mx-auto max-w-[500px] flex flex-wrap gap-2">
-        {buttons.map((btn, index) => (
-          <li key={index}>
-            <Button
-              onClick={() => handleCategory(btn)}
-              variant={"secondary"}
-              type='button'
-            >
-              {btn}
-            </Button>
-          </li>
-        ))}
-      </ul> */}
+    
     </div>
   );
 };
 
 export default SearchComponent;
 
-const buttons = ["Interior", "Nature", "Ocean", "Beach", "Food"];

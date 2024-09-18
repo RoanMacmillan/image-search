@@ -3,6 +3,7 @@ import Link from "next/link";
 import SearchComponent from "./search";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { PopoverDemo } from "./navmenu";
+import { CarouselSize } from "./navigation-slider";
 interface NavProps {
   photo?: any;
 }
@@ -10,43 +11,42 @@ interface NavProps {
 const Nav: React.FC<NavProps> = ({ photo }) => {
   return (
     <>
-      <div className="fixed w-full top-0 bg-white border-b-[0px] shadow-none overflow-hidden z-[50] px-2 lg:px-4 left-0">
-        <nav className=" flex border-b-0 items-center justify-between gap-4 lg:gap-8 py-3">
+      <div className="lg:fixed left-0 top-0 z-[50] w-full overflow-hidden border-b bg-white px-2 pt-3 pb-4 lg:py-4 shadow-none lg:px-4">
+        <nav className="flex items-center justify-between gap-4 border-b-0 lg:gap-8">
+          <div className="flex w-full items-center gap-4 lg:gap-6">
+            <Link href="/">
+              <div className="flex gap-1">
+                <div className="h-6 w-4 bg-slate-950"></div>
+                <div className="h-4 w-4 bg-slate-950"></div>
+              </div>
+            </Link>
 
-          <div className="flex items-center gap-4 lg:gap-6 w-full">
-          <Link href="/">
-            <div className="flex gap-1">
-              <div className="w-4 h-6 bg-slate-950"></div>
-              <div className="w-4 h-4 bg-slate-950"></div>
-            </div>
-          </Link>
-
-          <SearchComponent></SearchComponent>
-
+            <SearchComponent></SearchComponent>
           </div>
 
           <div className="flex items-center gap-4 lg:gap-8">
-
-            <Link className="text-sm lg:font-medium hidden sm:block whitespace-nowrap" href="/">
+            <Link
+              className="hidden whitespace-nowrap text-sm sm:block lg:font-medium"
+              href="/"
+            >
               Get Photop+
             </Link>
-            <Link className="text-sm lg:font-medium hidden sm:block" href="/">
+            <Link className="hidden text-sm sm:block lg:font-medium" href="/">
               Lorem
             </Link>
-            <Link className="text-sm lg:font-medium hidden sm:block" href="/">
+            <Link className="hidden text-sm sm:block lg:font-medium" href="/">
               Ipsum
             </Link>
 
-
-
-            <Avatar className="w-8 h-8 hidden lg:block">
+            <Avatar className="hidden h-8 w-8 lg:block">
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>RM</AvatarFallback>
             </Avatar>
 
             <PopoverDemo></PopoverDemo>
-            </div>
+          </div>
 
+          
         </nav>
         {/* {photo &&  
         
@@ -74,6 +74,11 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
         
         } */}
         {/* <PopoverDownload photo={photo}></PopoverDownload> */}
+
+        {/* <NavigationSlider></NavigationSlider> */}
+        <CarouselSize></CarouselSize>
+
+
       </div>
     </>
   );
