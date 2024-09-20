@@ -4,7 +4,16 @@ import { Button } from "../ui/button";
 import { useRouter } from "next/router";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
-const SearchComponent = () => {
+interface SearchProps { 
+
+inputClassName?: string;
+iconClassName?: string;
+btnClassName?: string;
+className?: string;
+
+}
+
+const SearchComponent: React.FC <SearchProps> = ({inputClassName, iconClassName, btnClassName, className}) => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>("");
 
@@ -27,20 +36,22 @@ const SearchComponent = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className={`w-full ${className || ''}`}>
       <form
         onSubmit={handleSearch}
         className="relative mx-auto flex items-center gap-2"
       >
-        <button className="absolute left-[10px]" type="submit">
-          <MagnifyingGlassIcon></MagnifyingGlassIcon>
+        <button className={`absolute left-[10px] ${btnClassName || ''}`} type="submit">
+          <MagnifyingGlassIcon className={`h-[15px] w-[15px] ${iconClassName || ''}`}></MagnifyingGlassIcon>
         </button>
 
         <Input
-          className="pl-8 bg-gray-100 border-gray-100 h-10 rounded-xl"
+          // className="pl-8 bg-gray-100 border-gray-100 h-10 rounded-xl"
+          className={`pl-8 bg-gray-100 border-gray-100 focus:bg-white text-sm h-10 rounded-xl ${inputClassName || ''}`}
           type="text"
           placeholder="Search for an image..."
           onChange={handleChange}
+          
           value={searchQuery}
         ></Input>
         {/* <Button type="submit" variant={"default"}>

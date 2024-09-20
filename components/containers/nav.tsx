@@ -3,7 +3,8 @@ import Link from "next/link";
 import SearchComponent from "./search";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { PopoverDemo } from "./navmenu";
-import { CarouselSize } from "./navigation-slider";
+import NavigationSlider from "./navigation-slider";
+import { Button } from "../ui/button";
 interface NavProps {
   photo?: any;
 }
@@ -11,7 +12,7 @@ interface NavProps {
 const Nav: React.FC<NavProps> = ({ photo }) => {
   return (
     <>
-      <div className="lg:fixed left-0 top-0 z-[50] w-full overflow-hidden border-b bg-white px-2 pt-3 pb-4 lg:py-4 shadow-none lg:px-4">
+      <div className="lg:fixed left-0 top-0 z-[50] w-full overflow-hidden bg-white px-2 pt-3 pb-0 lg:pt-4 shadow-none lg:px-4">
         <nav className="flex items-center justify-between gap-4 border-b-0 lg:gap-8">
           <div className="flex w-full items-center gap-4 lg:gap-6">
             <Link href="/">
@@ -26,17 +27,17 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
 
           <div className="flex items-center gap-4 lg:gap-8">
             <Link
-              className="hidden whitespace-nowrap text-sm sm:block lg:font-medium"
+              className="hidden whitespace-nowrap text-sm sm:block lg:font-semibold"
               href="/"
             >
               Get Photop+
             </Link>
-            <Link className="hidden text-sm sm:block lg:font-medium" href="/">
-              Lorem
+            <Link className="hidden text-sm sm:block" href="/">
+              <Button className="font-semibold text-gray-500" variant='outline'>Submit an image</Button>
             </Link>
-            <Link className="hidden text-sm sm:block lg:font-medium" href="/">
+            {/* <Link className="hidden text-sm sm:block lg:font-medium" href="/">
               Ipsum
-            </Link>
+            </Link> */}
 
             <Avatar className="hidden h-8 w-8 lg:block">
               <AvatarImage src="https://github.com/shadcn.png" />
@@ -76,8 +77,8 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
         {/* <PopoverDownload photo={photo}></PopoverDownload> */}
 
         {/* <NavigationSlider></NavigationSlider> */}
-        <CarouselSize></CarouselSize>
-
+        {/* <CarouselSize></CarouselSize> */}
+          <NavigationSlider></NavigationSlider>
 
       </div>
     </>
