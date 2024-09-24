@@ -4,6 +4,7 @@ import Nav from "@/components/containers/nav";
 import SearchComponent from "@/components/containers/search";
 import React from "react";
 import HomeCarousel from "@/components/containers/home-carousel";
+import { EmblaCarousel } from "@/components/containers/embla";
 export default function Home() {
   return (
     <>
@@ -12,6 +13,8 @@ export default function Home() {
         <HomeCarousel></HomeCarousel>
       {/* <SearchComponent></SearchComponent> */}
       <Masonry></Masonry>
+
+      {/* <EmblaCarousel></EmblaCarousel> */}
 
        </Layout>
 

@@ -17,7 +17,7 @@ export function PopoverDemo() {
       <PopoverTrigger asChild>
         <Button className="" variant="secondary">
           <span className="sr-only">Menu</span>
-          <HamburgerMenuIcon stroke="#000" strokeWidth={"0.5px"}></HamburgerMenuIcon>
+          <HamburgerMenuIcon stroke="#000" strokeWidth={"0.2px"}></HamburgerMenuIcon>
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="lg:w-[500px] lg:mt-1">

@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { PopoverDemo } from "./navmenu";
 import NavigationSlider from "./navigation-slider";
 import { Button } from "../ui/button";
+import { EmblaCarousel } from "./embla";
 interface NavProps {
   photo?: any;
 }
@@ -27,13 +28,13 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
 
           <div className="flex items-center gap-4 lg:gap-8">
             <Link
-              className="hidden whitespace-nowrap text-sm sm:block lg:font-semibold"
+              className="hidden whitespace-nowrap text-sm sm:block"
               href="/"
             >
               Get Photop+
             </Link>
             <Link className="hidden text-sm sm:block" href="/">
-              <Button className="font-semibold text-gray-500" variant='outline'>Submit an image</Button>
+              <Button className="" variant='outline'>Submit an image</Button>
             </Link>
             {/* <Link className="hidden text-sm sm:block lg:font-medium" href="/">
               Ipsum
@@ -79,6 +80,7 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
         {/* <NavigationSlider></NavigationSlider> */}
         {/* <CarouselSize></CarouselSize> */}
           <NavigationSlider></NavigationSlider>
+          {/* <EmblaCarousel></EmblaCarousel> */}
 
       </div>
     </>
