@@ -23,7 +23,7 @@ const HomeCarousel = () => {
       </div>
 
 
-      <Carousel className="mt-3 lg:mt-0">
+      <Carousel className="mt-3 lg:mt-0 block md:hidden">
         <CarouselContent className="lg:-ml-6">
           <CarouselItem className="lg:basis-3/3 basis-3/4 lg:pl-6 sm:basis-1/2">
             <Item></Item>

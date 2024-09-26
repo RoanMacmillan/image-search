@@ -34,7 +34,7 @@ const Masonry = () => {
                 </p>
               </div>
             <BlurFade
-              className="rounded-sm overflow-hidden md:mt-0"
+              className="overflow-hidden md:mt-0"
               delay={0.1}
               inView
             >
@@ -46,7 +46,7 @@ const Masonry = () => {
                   width={800}
                   height={800}
                   priority={true}
-                  className="mt-4 lg:mb-0"
+                  className="mt-4 lg:mt-6 lg:mb-0"
                 ></Image>
                 <div className="absolute hidden hover:cursor-pointer opacity-0 lg:block bg-black lg:group-hover:opacity-30 top-0 left-0 w-full h-full"></div>
               </div>
