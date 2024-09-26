@@ -3,6 +3,7 @@ import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import Item from "./carousel-slideshow";
 import Collections from "./carousel-collections";
 import SearchComponent from "./search";
+import WideCard from "./desktop-card";
 const HomeCarousel = () => {
   return (
     <>
@@ -34,6 +35,11 @@ const HomeCarousel = () => {
           </CarouselItem>
         </CarouselContent>
       </Carousel>
+
+
+
+      <WideCard></WideCard>
+
 
       </div>
 
