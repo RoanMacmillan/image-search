@@ -9,7 +9,7 @@ const HomeCarousel = () => {
 
       
 
-      <div className="lg:flex mt-10 lg:mt-0 max-w-[1300px] justify-between lg:mx-auto gap-8">
+      <div className="lg:flex mt-10 lg:mt-0 max-w-[1300px] justify-between lg:mx-auto gap-6">
 
       <h1 className="text-3xl lg:hidden block font-bold">Photop</h1>
 
@@ -24,11 +24,11 @@ const HomeCarousel = () => {
 
 
       <Carousel className="mt-3 lg:mt-0">
-        <CarouselContent className="">
-          <CarouselItem className="lg:basis-3/3 basis-3/4 lg:pr-8 sm:basis-1/2">
+        <CarouselContent className="lg:-ml-6">
+          <CarouselItem className="lg:basis-3/3 basis-3/4 lg:pl-6 sm:basis-1/2">
             <Item></Item>
           </CarouselItem>
-          <CarouselItem className="lg:basis-3/3 basis-3/4 sm:basis-1/2">
+          <CarouselItem className="lg:basis-3/3 basis-3/4 lg:pl-6 sm:basis-1/2">
           <Collections></Collections>
 
           </CarouselItem>

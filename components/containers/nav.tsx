@@ -23,7 +23,7 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
               </div>
             </Link>
 
-            <SearchComponent></SearchComponent>
+            <SearchComponent inputClassName="h-9 md:h-10"></SearchComponent>
           </div>
 
           <div className="flex items-center gap-4 lg:gap-8">

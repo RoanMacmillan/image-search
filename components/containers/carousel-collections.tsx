@@ -14,7 +14,7 @@ const Collections = () => {
       <ul className="flex flex-col gap-2">
         {photoGallery.slice(0, 2).map((item) => (
           <li key={item.id} className="flex items-center gap-2">
-            <div className="w-[36px] relative bg-red-200 rounded-sm overflow-hidden h-[36px]">
+            <div className="w-[36px] relative rounded-sm overflow-hidden h-[36px]">
             <Image fill src={item.url} alt={item.title}></Image>
             </div>
             <div>
