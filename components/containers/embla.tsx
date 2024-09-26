@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ArrowBottomLeftIcon, ArrowBottomRightIcon, ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
+import Link from "next/link";
 export const EmblaCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,9 +21,9 @@ export const EmblaCarousel = () => {
   }, [emblaApi]);
 
   const logIndex = () => {
-    console.log(currentIndex);
-    // console.log(buttons.length)
-    console.log(buttons.length - 2);
+    console.log(`The current index is ${currentIndex}`);
+    console.log(`${buttons.length} buttons`)
+    // console.log(buttons.length - 2);
   };
 
   useEffect(() => {
@@ -37,37 +38,34 @@ export const EmblaCarousel = () => {
   return (
     <div className="embla relative overflow-hidden">
       <div className="" ref={emblaRef}>
-        <div className="flex">
+        <div className="flex gap-7">
           {buttons.map((item) => (
-            <div className="embla__slide" key={item.id}>
+            <div className="embla__slide flex gap-7" key={item.id}>
               {item.categories.map((category, index) => (
-                <span key={index} className="mr-7">
+                    <Link href='/' key={index} className="hover:text-black transition-colors">
                   {category}
-                </span>
+                  </Link>
               ))}
             </div>
           ))}
         </div>
       </div>
       <button
-        className={`${currentIndex === 0 ? "hidden" : "block"} embla__prev h-full absolute left-0 z-50 top-[0px]`}
+        className={`${currentIndex === 0 ? "hidden" : "md:block"} hidden  embla__prev h-full absolute left-0 z-50 top-[0px]`}
         onClick={scrollPrev}
         disabled={currentIndex === 0}
       >
-        {/* <div className="gradient-background w-[50px] h-full"></div> */}
         <ArrowLeftIcon className="w-4 h-4"></ArrowLeftIcon>
       </button>
       <div className={` ${currentIndex === 0 ? 'hidden' : 'block'} gradient-background w-[70px] absolute z-1 left-0 top-0 h-full`}></div>
 
       <button
-        // className="embla__next absolute top-0 right-0 bg-emerald-200"
-        className={`${currentIndex === buttons.length - 2 ? "hidden" : "block"} embla__prev z-50 absolute right-0 top-0`}
+        className={`${currentIndex === buttons.length - 1 ? "hidden" : "md:block"} hidden embla__prev z-50 absolute right-0 top-0`}
         onClick={scrollNext}
-        // disabled={currentIndex === buttons.length - 1}
       >
         <ArrowRightIcon className="w-4 h-4"></ArrowRightIcon>
       </button>
-      <div className={` ${currentIndex === buttons.length - 2 ? 'hidden' : 'block'} rotate-180 gradient-background w-[70px] absolute z-1 right-0 top-0 h-full`}></div>
+      <div className={` ${currentIndex === buttons.length - 1 ? 'hidden' : 'block'} rotate-180 gradient-background w-[70px] absolute z-1 right-0 top-0 h-full`}></div>
 
       {/* <button onClick={logIndex}>log</button> */}
     </div>
