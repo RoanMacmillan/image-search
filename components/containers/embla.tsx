@@ -3,9 +3,21 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ArrowBottomLeftIcon, ArrowBottomRightIcon, ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import Link from "next/link";
-export const EmblaCarousel = () => {
+import { useRouter } from "next/router";
+
+interface EmblaProps {
+
+
+}
+
+export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
   const [emblaRef, emblaApi] = useEmblaCarousel();
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const router = useRouter();
+
+
+  const isActive = (pathname: string) => router.asPath === pathname;
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -42,8 +54,14 @@ export const EmblaCarousel = () => {
           {buttons.map((item) => (
             <div className="embla__slide flex gap-7" key={item.id}>
               {item.categories.map((category, index) => (
-                    <Link href='/' key={index} className="hover:text-black transition-colors">
+                    <Link  
+                    
+              href={`/s/photos/${encodeURIComponent(category.toLowerCase())}`}
+                    
+                    
+                    key={index} className={`${isActive(`/s/photos/${category.toLowerCase()}`) ? 'text-black font-semibold' : ''} hover:text-black transition-colors `}>
                   {category}
+                  
                   </Link>
               ))}
             </div>

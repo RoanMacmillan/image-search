@@ -41,8 +41,16 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
     <>
     <Layout title='search'>
       <Nav></Nav>
-      <ul className="mt-4 flex flex-col gap-2 justify-center px-2">
-        {photoData.length > 0 &&
+
+      <div className="hidden lg:block mt-auto w-full">
+      <h1 className="text-3xl lg:text-5xl font-bold">{}</h1>
+      <p className="hidden lg:block mt-4 text-lg">The internets source for images.</p>
+      <p className="hidden lg:block mb-4 text-lg">Powered by creators around the world.</p>
+
+      </div>
+
+      <ul className="md:columns-2 lg:columns-3 lg:gap-6 mt-10 max-w-[1300px] mx-auto lg:mt-10">
+      {photoData.length > 0 &&
           photoData.map((item) => (
             <li key={item.id} className="">
               {/* {loading ?   (   <div className="bg-red-500" style={{ width: `${item.width}px`, height: `${item.height}px` }}> */}
@@ -66,7 +74,10 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
               {/* } */}
             </li>
           ))}
-      </ul>
+        </ul>
+
+
+
       </Layout>
     </>
   );

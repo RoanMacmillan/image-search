@@ -25,8 +25,8 @@ const WideCard = () => {
             Cancel anytime.
           </p>
 
-          <Button className="mt-auto" variant={"default"} type="button">
-            Upgrade to Photop+
+          <Button className="mt-auto font-semibold text-sm flex gap-1 w-[170px]" variant={"default"} type="button">
+            <span>Upgrade to</span><strong className="font-bold">Photop+</strong>
           </Button>
         </div>
 

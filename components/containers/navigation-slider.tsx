@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/router";
 import {
@@ -10,32 +10,45 @@ import {
 } from "../ui/carousel";
 import { Separator } from "../ui/separator";
 import { EmblaCarousel } from "./embla";
+import Link from "next/link";
 
 const NavigationSlider = () => {
-  console.log(buttons.length);
   const router = useRouter();
 
-  const handleCategory = (category: string) => {
-    console.log(category);
 
-    router.push(`/s/photos/${encodeURIComponent(category.toLowerCase())}`);
+  const isActive = (pathname: string) => router.asPath === pathname;
+
+  const handleItem = (item: string) => {
+    console.log(item);
+    // router.push(`/s/photos/${encodeURIComponent(item.toLowerCase())}`);
   };
 
   return (
     <>
-      <div className="mt-6 flex items-center text-gray-500 text-sm">
-        <ul className="hidden md:flex items-center gap-7">
+      <div className="mt-6 flex items-center text-sm text-gray-500">
+        <ul className="hidden items-center gap-7 md:flex">
           {mainBtns.map((item, index) => (
-            <li key={index}>{item}</li>
+            <Link
+              href={`/s/photos/${encodeURIComponent(item.toLowerCase())}`}
+              passHref
+              onClick={() => handleItem(item)}
+              className={`${isActive(`/s/photos/${item.toLowerCase()}`) ? "text-black font-semibold" : ""} hover:text-black transition-colors`}
+              key={index}
+            >
+              {item}
+
+              {/* {activeLink === item && <div className="w-4 h-1 bg-red-400"></div>} */}
+            </Link>
           ))}
-
-
         </ul>
 
-        <Separator orientation="vertical" className="h-8 ml-7 mr-7 hidden md:block"></Separator>
-          
+        <Separator
+          orientation="vertical"
+          className="ml-7 mr-7 hidden h-8 md:block"
+        ></Separator>
 
-          <EmblaCarousel></EmblaCarousel>
+        <EmblaCarousel
+        ></EmblaCarousel>
 
         {/* <Carousel
           opts={{
@@ -59,9 +72,8 @@ const NavigationSlider = () => {
           <CarouselPrevious />
           <CarouselNext className="" />
         </Carousel> */}
-        </div>
+      </div>
       <Separator className="mt-4 block" orientation="horizontal"></Separator>
-
     </>
   );
 };
