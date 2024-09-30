@@ -35,7 +35,7 @@ const Slideshow: React.FC<SlideshowProps> = ({imageClass}) => {
             alt="Picture"
             width={500}
             height={500}
-            className={`${imageClass || ''} absolute w-full brightness-75 h-full object-cover transition-opacity duration-1000 ease-in-out ${
+            className={`${imageClass || ''} absolute w-full brightness-100  h-full object-cover transition-opacity duration-1000 ease-in-out ${
               index === currentSlide ? "opacity-100" : "opacity-0"
             }`}
           />

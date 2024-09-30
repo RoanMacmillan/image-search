@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = 'My App' }) => {
   const { pathname } = router;
 
   return (
-    <div className='px-2 max-w-[1400px] mx-auto relative'>
+    <div className='px-2 max-w-[1300px] mx-auto relative'>
       <Head>
         <title>{title}</title>
         <meta charSet="UTF-8" />
@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = 'My App' }) => {
       <header>
         {/* <Nav /> */}
       </header>
-      <main className={` ${pathname === '/' ? ' lg:mt-[175px]' : ' lg:mt-[175px]'}`}>
+      <main className={` ${pathname === '/' ? ' lg:mt-[175px]' : ' lg:mt-[160px]'}`}>
         {children}
       </main>
       <footer>

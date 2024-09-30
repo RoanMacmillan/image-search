@@ -39,6 +39,26 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
   };
 
   useEffect(() => {
+    const handleRouteChange = () => {
+      if (emblaApi) {
+        localStorage.setItem("carouselIndex", JSON.stringify(emblaApi.selectedScrollSnap()));
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [emblaApi, router.events]);
+
+  useEffect(() => {
+    const savedIndex = localStorage.getItem("carouselIndex");
+    if (savedIndex && emblaApi) {
+      emblaApi.scrollTo(Number(savedIndex));
+    }
+  }, [emblaApi]);
+
+  useEffect(() => {
     if (!emblaApi) return;
     emblaApi.on("scroll", onScroll);
     onScroll(); // Initialize the current index on mount
@@ -92,16 +112,7 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
 
 
 
-// const buttons = [
-//   { id: 1, categories: ["Interior", "Nature", "Ocean"] },
-//   { id: 2, categories: ["Beach", "Food", "Architecture"] },
-//   { id: 3, categories: ["Technology", "Fashion", "Wildlife"] },
-//   { id: 4, categories: ["Travel", "Landscape", "Art"] },
-//   { id: 5, categories: ["Music", "Sports", "Automotive"] },
-//   { id: 6, categories: ["Fitness", "Health", "Education"] },
-//   { id: 7, categories: ["Business", "Photography", "Science"] },
-//   { id: 8, categories: ["Space", "History", "Movies", "Books"] },
-// ];
+
 
 const buttons = [
     { id: 1, categories: ["Interior", "Nature", "Ocean", "Beach"] },

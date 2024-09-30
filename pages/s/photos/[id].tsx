@@ -4,6 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Layout from "@/components/containers/layout";
 import Nav from "@/components/containers/nav";
+import { capitalizeFirstLetter } from "@/utils/capitilize";
+import BlurFade from '../../../components/animations/blurfade';
+import { Button } from "@/components/ui/button";
+
 interface UnsplashImage {
   id: string;
   description: string | null;
@@ -21,9 +25,10 @@ interface UnsplashImage {
 interface PhotoDetailProps {
   photoData: UnsplashImage[];
   error: string | null;
+  slug: string;
 }
 
-const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
+const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error, slug }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -43,13 +48,23 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
       <Nav></Nav>
 
       <div className="hidden lg:block mt-auto w-full">
-      <h1 className="text-3xl lg:text-5xl font-bold">{}</h1>
-      <p className="hidden lg:block mt-4 text-lg">The internets source for images.</p>
-      <p className="hidden lg:block mb-4 text-lg">Powered by creators around the world.</p>
+      <h1 className="text-3xl font-bold ">{capitalizeFirstLetter(slug)}</h1>
+      {/* <p className="hidden lg:block mt-4 text-lg">The internets source for images.</p> */}
+      {/* <p className="hidden lg:block mb-4 text-lg">Powered by creators around the world.</p> */}
+
+    <div className="flex gap-2 mt-4">
+      {related.map((item, index) => (
+
+        <Button size={'lg'} variant={'outline'} key={index}>{capitalizeFirstLetter(item)}</Button>
+
+
+      ))}
 
       </div>
 
-      <ul className="md:columns-2 lg:columns-3 lg:gap-6 mt-10 max-w-[1300px] mx-auto lg:mt-10">
+      </div>
+
+      <ul className="md:columns-2 lg:columns-3 lg:gap-6 mt-6 mx-auto lg:mt-2">
       {photoData.length > 0 &&
           photoData.map((item) => (
             <li key={item.id} className="">
@@ -57,17 +72,30 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error }) => {
               {/* </div> */}
 
               {/* ) : ( */}
+              {/* <BlurFade
+              className="overflow-hidden md:mt-0"
+              delay={0.1}
+              inView
+            > */}
+
+            <div className="overflow-hidden">
+
               <Link href={`/photos/${item.id}`}>
               <Image
                 src={item.urls.regular}
                 alt="hello"
                 width={500}
-                className={`${!loading ? "animate-pulse" : ""} bg-slate-200`}
+                className={`${!loading ? "animate-pulse" : ""} bg-slate-200 mt-4 lg:mt-6`}
                 height={500}
                 onLoad={handleLoad}
+                priority={true}
               ></Image>
 
               </Link>
+
+              </div>
+
+              {/* </BlurFade> */}
 
               {/* ) */}
 
@@ -88,7 +116,7 @@ export default PhotoDetail;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params!;
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-  const url = `https://api.unsplash.com/search/photos?query=${id}&per_page=3&client_id=${apiKey}`;
+  const url = `https://api.unsplash.com/search/photos?query=${id}&per_page=10&client_id=${apiKey}`;
 
   try {
     const response = await fetch(url);
@@ -98,6 +126,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         photoData: data.results,
         error: null,
+        slug: id,
       },
     };
   } catch (error) {
@@ -105,7 +134,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: {
         photoData: [],
         error: "Failed to fetch images. Try again later.",
+        slug: id,
       },
     };
   }
 };
+
+
+const related = ['related', 'tags', 'placeholder', 'goes', 'here', 'images', 'photos', 'illustrations']

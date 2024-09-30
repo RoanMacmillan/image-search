@@ -12,7 +12,7 @@ const Masonry = () => {
 
     return (
 
-        <ul className="md:columns-2 lg:columns-3 lg:gap-6 mt-10 max-w-[1300px] mx-auto lg:mt-10">
+        <ul className="md:columns-2 lg:columns-3 lg:gap-6 mt-10 mx-auto lg:mt-10">
         {initialList.map((item) => (
           <li
             className={`relative  mb-6 group lg:hover:brightness-100 lg:mb-0`}

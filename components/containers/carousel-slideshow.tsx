@@ -14,10 +14,13 @@ const Item = () => {
 
       <div className="absolute inset-0">
 
-
       <Slideshow></Slideshow>
 
+
       </div>
+      
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
+
     </div>
   );
 };

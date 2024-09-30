@@ -34,7 +34,7 @@ const WideCard = () => {
 
         <div className="h-full w-full">
           <div className="absolute right-[88px] top-[46px] h-[213px] w-[177px] bg-white">
-            <Slideshow imageClass="bg-white p-1 brightness-100"></Slideshow>
+            <Slideshow imageClass="bg-white p-1"></Slideshow>
           </div>
 
           {/* </div> */}
