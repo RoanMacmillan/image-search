@@ -39,8 +39,11 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
   };
 
   useEffect(() => {
-    const handleRouteChange = () => {
-      if (emblaApi) {
+    const handleRouteChange = (url: string) => {
+      if (url === "/") {
+        // Reset the carousel index if navigating to the home page
+        localStorage.removeItem("carouselIndex");
+      } else if (emblaApi) {
         localStorage.setItem("carouselIndex", JSON.stringify(emblaApi.selectedScrollSnap()));
       }
     };
@@ -52,11 +55,14 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
   }, [emblaApi, router.events]);
 
   useEffect(() => {
-    const savedIndex = localStorage.getItem("carouselIndex");
-    if (savedIndex && emblaApi) {
-      emblaApi.scrollTo(Number(savedIndex));
+    if (router.asPath !== "/") {
+      const savedIndex = localStorage.getItem("carouselIndex");
+      if (savedIndex && emblaApi) {
+        // Jump directly to the saved index without animation
+        emblaApi.scrollTo(Number(savedIndex), false);
+      }
     }
-  }, [emblaApi]);
+  }, [emblaApi, router.asPath]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -79,7 +85,7 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
               href={`/s/photos/${encodeURIComponent(category.toLowerCase())}`}
                     
                     
-                    key={index} className={`${isActive(`/s/photos/${category.toLowerCase()}`) ? 'text-black font-semibold' : ''} hover:text-black transition-colors `}>
+                    key={index} className={`${isActive(`/s/photos/${category.toLowerCase()}`) ? 'text-black' : ''} hover:text-black transition-colors `}>
                   {category}
                   
                   </Link>

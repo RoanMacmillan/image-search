@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "@/components/containers/layout";
 import Nav from "@/components/containers/nav";
 import { capitalizeFirstLetter } from "@/utils/capitilize";
-import BlurFade from '../../../components/animations/blurfade';
+import BlurFade from "../../../components/animations/blurfade";
 import { Button } from "@/components/ui/button";
+import { getRelatedWords } from "@/lib/getRelatedWords";
+import Overlay from "@/components/containers/image-overlay";
 
 interface UnsplashImage {
   id: string;
+  user: {
+
+    name:string;
+  }
   description: string | null;
   urls: {
     small: string;
     full: string;
     regular: string;
   };
+  profile_image: {
+    small:string;
+    medium:string;
+    large: string;
+
+  }
   blur_hash: string;
   width: number;
   height: number;
@@ -28,15 +40,31 @@ interface PhotoDetailProps {
   slug: string;
 }
 
-const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error, slug }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+interface RelatedWords {
+  word: string;
+  score: number;
+}
 
+const PhotoDetail: React.FC<PhotoDetailProps> = ({
+  photoData,
+  error,
+  slug,
+}) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  // const [wordData, setWordData] = useState<RelatedWords[]>([]);
+
+  // useEffect(() => {
+  //   const fetchWords = async () => {
+  //     const words = await getRelatedWords(slug);
+  //     setWordData(words);
+  //   };
+
+  //   fetchWords();
+  // }, [wordData]);
 
   const handleLoad = () => {
     setLoading(true);
   };
-
- 
 
   if (error) {
     return <div>{error}</div>;
@@ -44,68 +72,48 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({ photoData, error, slug }) => 
 
   return (
     <>
-    <Layout title='search'>
-      <Nav></Nav>
+      <Layout title="search">
+        <Nav></Nav>
 
-      <div className="hidden lg:block mt-auto w-full">
-      <h1 className="text-3xl font-bold ">{capitalizeFirstLetter(slug)}</h1>
-      {/* <p className="hidden lg:block mt-4 text-lg">The internets source for images.</p> */}
-      {/* <p className="hidden lg:block mb-4 text-lg">Powered by creators around the world.</p> */}
+        <div className="mt-auto hidden w-full lg:block overflow-hidden">
+          <h1 className="text-3xl font-bold">{capitalizeFirstLetter(slug)}</h1>
+          {/* <p className="hidden lg:block mt-4 text-lg">The internets source for images.</p> */}
+          {/* <p className="hidden lg:block mb-4 text-lg">Powered by creators around the world.</p> */}
 
-    <div className="flex gap-2 mt-4">
-      {related.map((item, index) => (
+          {/* <div className="mt-4 flex gap-2">
+            {wordData.map((item, index) => (
+              <Button size={"lg"} variant={"outline"} key={index}>
+                {capitalizeFirstLetter(item.word)}
+              </Button>
+            ))}
+          </div> */}
+        </div>
 
-        <Button size={'lg'} variant={'outline'} key={index}>{capitalizeFirstLetter(item)}</Button>
+        <ul className="mx-auto mt-6 md:columns-2 lg:mt-2 lg:columns-3 lg:gap-6">
+          {photoData.length > 0 &&
+            photoData.map((item) => (
+              <li key={item.id} className="">
+                {/* {loading ?   (   <div className="bg-red-500" style={{ width: `${item.width}px`, height: `${item.height}px` }}> */}
+                {/* </div> */}
 
-
-      ))}
-
-      </div>
-
-      </div>
-
-      <ul className="md:columns-2 lg:columns-3 lg:gap-6 mt-6 mx-auto lg:mt-2">
-      {photoData.length > 0 &&
-          photoData.map((item) => (
-            <li key={item.id} className="">
-              {/* {loading ?   (   <div className="bg-red-500" style={{ width: `${item.width}px`, height: `${item.height}px` }}> */}
-              {/* </div> */}
-
-              {/* ) : ( */}
-              {/* <BlurFade
+                {/* ) : ( */}
+                {/* <BlurFade
               className="overflow-hidden md:mt-0"
               delay={0.1}
               inView
             > */}
 
-            <div className="overflow-hidden">
+            <Overlay imgSrc={item.urls.regular} slugUrl={item.id} name={item.user.name}></Overlay>
 
-              <Link href={`/photos/${item.id}`}>
-              <Image
-                src={item.urls.regular}
-                alt="hello"
-                width={500}
-                className={`${!loading ? "animate-pulse" : ""} bg-slate-200 mt-4 lg:mt-6`}
-                height={500}
-                onLoad={handleLoad}
-                priority={true}
-              ></Image>
+               
+                {/* </BlurFade> */}
 
-              </Link>
+                {/* ) */}
 
-              </div>
-
-              {/* </BlurFade> */}
-
-              {/* ) */}
-
-              {/* } */}
-            </li>
-          ))}
+                {/* } */}
+              </li>
+            ))}
         </ul>
-
-
-
       </Layout>
     </>
   );
@@ -140,5 +148,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-
-const related = ['related', 'tags', 'placeholder', 'goes', 'here', 'images', 'photos', 'illustrations']
+const related = [
+  "related",
+  "tags",
+  "placeholder",
+  "goes",
+  "here",
+  "images",
+  "photos",
+  "illustrations",
+];
