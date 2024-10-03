@@ -15,6 +15,14 @@ interface UnsplashImage {
   user: {
 
     name:string;
+
+    profile_image: {
+      small:string;
+      medium:string;
+      large: string;
+  
+    }
+
   }
   description: string | null;
   urls: {
@@ -22,12 +30,10 @@ interface UnsplashImage {
     full: string;
     regular: string;
   };
-  profile_image: {
-    small:string;
-    medium:string;
-    large: string;
 
-  }
+ 
+
+
   blur_hash: string;
   width: number;
   height: number;
@@ -61,6 +67,12 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
 
   //   fetchWords();
   // }, [wordData]);
+
+  useEffect(() => {
+
+    console.log(photoData);
+
+  }, [])
 
   const handleLoad = () => {
     setLoading(true);
@@ -103,8 +115,8 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
               inView
             > */}
 
-            <Overlay imgSrc={item.urls.regular} slugUrl={item.id} name={item.user.name}></Overlay>
-
+            <Overlay avatarSrc={item.user.profile_image.small} imgSrc={item.urls.regular} slugUrl={item.id} name={item.user.name}></Overlay>
+                  {/* <Image src={item.profile_image.large} alt='d' width={50} height={50}></Image> */}
                
                 {/* </BlurFade> */}
 

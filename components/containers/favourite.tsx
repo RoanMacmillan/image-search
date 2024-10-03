@@ -45,7 +45,7 @@ const Favourite: React.FC = () => {
                   onClick={() => toggleFavourite()}
                   // className={`${isFavourite(item) ? 'bg-red-400' : ''} shadow-sm`}
                   variant="secondary"
-                  className="px-[14px] pointer-events-auto"
+                  className="px-[14px] pointer-events-auto h-8"
                 >
                   {/* {isFavourite(item) ? (
                     <HeartFilledIcon className=""></HeartFilledIcon>

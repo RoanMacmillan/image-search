@@ -4,19 +4,16 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import Download from "./download";
 import Favourite from "./favourite";
-
-
+import { AvatarDemo } from "./avatar";
 
 interface OverlayProps {
-
-    imgSrc: string;
-    slugUrl: string;
-    name: string;
-
+  imgSrc: string;
+  avatarSrc: string;
+  slugUrl: string;
+  name: string;
 }
 
-
-const Overlay: React.FC<OverlayProps> = ({imgSrc, slugUrl, name}) => {
+const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleLoad = () => {
@@ -24,32 +21,34 @@ const Overlay: React.FC<OverlayProps> = ({imgSrc, slugUrl, name}) => {
   };
 
   return (
-    <div className="overflow-hidden image-container relative">
+    <div className="image-container relative overflow-hidden">
       <Link className="" href={`/photos/${slugUrl}`}>
         <Image
           src={imgSrc}
           alt="hello"
           width={500}
-          className={`${!loading ? "animate-pulse" : ""} relative mt-4 bg-slate-200 lg:mt-6`}
+          className={`${!loading ? "animate-pulse" : ""} relative bg-slate-200 mt-6`}
           height={500}
           onLoad={handleLoad}
           priority={true}
         ></Image>
-
-     
-      
-
       </Link>
-      <div className="hover-element flex justify-between">
 
-<Download username={imgSrc}></Download>
-<Favourite></Favourite>
+      <div className="gradient"></div>
+      <div className="hover-element hidden md:flex flex-col justify-between p-4 pb-10">
+        <div className="flex justify-end gap-2">
+        <Favourite></Favourite>
 
-<span className="text-white">{name}</span>
+        <Download username={imgSrc}></Download>
+        </div>
 
-</div>
 
+        <div className="flex items-center gap-2">
+        <AvatarDemo img={avatarSrc}></AvatarDemo>
 
+        <span className="text-white font-medium pointer-events-auto">{name}</span>
+        </div>
+      </div>
 
     </div>
   );

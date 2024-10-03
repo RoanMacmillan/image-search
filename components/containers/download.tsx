@@ -8,6 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
+import { DownloadIcon } from "@radix-ui/react-icons";
 
 interface DownloadProps {
   username: string;
@@ -17,7 +18,11 @@ const Download: React.FC<DownloadProps> = ({ username }) => {
   return (
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant={'secondary'} className="pointer-events-auto">Download</Button>
+          <Button variant={'secondary'} className="pointer-events-auto px-[14px] h-8">
+
+            <DownloadIcon></DownloadIcon>
+
+          </Button>
         </DialogTrigger>
 
         <DialogContent>
