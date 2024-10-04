@@ -1,6 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
 import { useRouter } from "next/router";
+import { Toaster } from "@/components/ui/sonner"
+
 
 // Define the type for the layout props
 type LayoutProps = {
@@ -25,6 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title = 'My App' }) => {
       </header>
       <main className={` ${pathname === '/' ? ' lg:mt-[175px]' : ' lg:mt-[160px]'}`}>
         {children}
+        <Toaster theme='light' className=''></Toaster>
       </main>
       <footer>
         {/* Footer content */}

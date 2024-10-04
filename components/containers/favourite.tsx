@@ -7,58 +7,56 @@ import {
   HeartIcon,
   PlusIcon,
   MagnifyingGlassIcon,
+  FaceIcon,
 } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 
-interface FavouriteProps  {
-
-    item: any;
+interface FavouriteProps {
+  item: any;
 }
 
-const Favourite: React.FC = () => {
-
- 
-   
-
-  const [favourite, setFavourite] = useState<PhotoItem[]>([]);
-
+const Favourite: React.FC<FavouriteProps> = ({ item }) => {
+  const [favourite, setFavourite] = useState<boolean>(false);
 
   const toggleFavourite = () => {
+    setFavourite((prev) => {
+      if (!prev) {
+        console.log(`added ${item} to favourites`);
 
-    toast.success(`added to favourites!`, {
-        icon: <HeartFilledIcon className="text-red-400" />,
-        duration: 3000,
-      });
+        toast.success(`${item} added to favourites!`, {
+          icon: <HeartFilledIcon className="text-red-400" />,
+          duration: 3000,
+        });
+      } else {
+        console.log(`removed ${item} from favourites`);
 
-      console.log('clicked')
-   
+        toast.success(`${item} removed from favourites!`, {
+          icon: <HeartIcon />,
+          duration: 3000,
+        });
+      }
+      return !prev;
+    });
   };
 
-  const isFavourite = (photo: PhotoItem) => {
-    return favourite.some((fav) => fav.id === photo.id);
-  };
+ 
 
+  return (
+    <>
+      <Button
+        onClick={() => toggleFavourite()}
+        // className={`${isFavourite(item) ? 'bg-red-400' : ''} shadow-sm`}
+        variant="secondary"
+        className="pointer-events-auto h-8 px-[14px]"
+      >
+       
 
-    return (
-        <>
-            <Button
-                  onClick={() => toggleFavourite()}
-                  // className={`${isFavourite(item) ? 'bg-red-400' : ''} shadow-sm`}
-                  variant="secondary"
-                  className="px-[14px] pointer-events-auto h-8"
-                >
-                  {/* {isFavourite(item) ? (
-                    <HeartFilledIcon className=""></HeartFilledIcon>
-                  ) : (
-                    <HeartIcon></HeartIcon>
-                  )} */}
-
-                  <HeartFilledIcon
-                    // className={`${isFavourite(item) ? "text-red-400" : ""}`}
-                  ></HeartFilledIcon>
-                </Button>
-        </>
-    );
+        <HeartFilledIcon
+        className={`${favourite === true ? "text-red-400" : ""}`}
+        ></HeartFilledIcon>
+      </Button>
+    </>
+  );
 };
 
 export default Favourite;

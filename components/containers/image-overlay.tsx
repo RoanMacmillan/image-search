@@ -3,17 +3,18 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import Download from "./download";
-import Favourite from "./favourite";
 import { AvatarDemo } from "./avatar";
+import Favourite from "./favourite";
 
 interface OverlayProps {
   imgSrc: string;
   avatarSrc: string;
-  slugUrl: string;
+  slugUrl?: string;
   name: string;
+  imgName: string;
 }
 
-const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc }) => {
+const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, imgName }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleLoad = () => {
@@ -37,9 +38,9 @@ const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc }) =
       <div className="gradient"></div>
       <div className="hover-element hidden md:flex flex-col justify-between p-4 pb-10">
         <div className="flex justify-end gap-2">
-        <Favourite></Favourite>
+        <Favourite item={imgName}></Favourite>
 
-        <Download username={imgSrc}></Download>
+        <Download attributionImg={imgSrc} username={name}></Download>
         </div>
 
 

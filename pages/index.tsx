@@ -6,9 +6,12 @@ import React from "react";
 import HomeCarousel from "@/components/containers/home-carousel";
 import { EmblaCarousel } from "@/components/containers/embla";
 
+
+
 export default function Home() {
   return (
     <>
+
       <Layout title="Home">
         <Nav></Nav>
         <HomeCarousel></HomeCarousel>

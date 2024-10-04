@@ -9,30 +9,26 @@ import BlurFade from "../../../components/animations/blurfade";
 import { Button } from "@/components/ui/button";
 import { getRelatedWords } from "@/lib/getRelatedWords";
 import Overlay from "@/components/containers/image-overlay";
+import { Toaster } from "@/components/ui/toaster";
 
 interface UnsplashImage {
   id: string;
   user: {
-
-    name:string;
+    name: string;
 
     profile_image: {
-      small:string;
-      medium:string;
+      small: string;
+      medium: string;
       large: string;
-  
-    }
-
-  }
-  description: string | null;
+    };
+  };
+  description: string;
+  alt_description: string;
   urls: {
     small: string;
     full: string;
     regular: string;
   };
-
- 
-
 
   blur_hash: string;
   width: number;
@@ -69,10 +65,8 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
   // }, [wordData]);
 
   useEffect(() => {
-
     console.log(photoData);
-
-  }, [])
+  }, []);
 
   const handleLoad = () => {
     setLoading(true);
@@ -87,7 +81,7 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
       <Layout title="search">
         <Nav></Nav>
 
-        <div className="mt-auto hidden w-full lg:block overflow-hidden">
+        <div className="mt-auto hidden w-full overflow-hidden lg:block">
           <h1 className="text-3xl font-bold">{capitalizeFirstLetter(slug)}</h1>
           {/* <p className="hidden lg:block mt-4 text-lg">The internets source for images.</p> */}
           {/* <p className="hidden lg:block mb-4 text-lg">Powered by creators around the world.</p> */}
@@ -115,9 +109,15 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
               inView
             > */}
 
-            <Overlay avatarSrc={item.user.profile_image.small} imgSrc={item.urls.regular} slugUrl={item.id} name={item.user.name}></Overlay>
-                  {/* <Image src={item.profile_image.large} alt='d' width={50} height={50}></Image> */}
-               
+                <Overlay
+                  avatarSrc={item.user.profile_image.small}
+                  imgSrc={item.urls.regular}
+                  slugUrl={item.slug}
+                  name={item.user.name}
+                  imgName={capitalizeFirstLetter(item.alt_description)}
+                ></Overlay>
+                {/* <Image src={item.profile_image.large} alt='d' width={50} height={50}></Image> */}
+
                 {/* </BlurFade> */}
 
                 {/* ) */}
