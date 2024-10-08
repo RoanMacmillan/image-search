@@ -31,7 +31,7 @@ const Download: React.FC<DownloadProps> = ({ username, attributionImg, name }) =
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
+        <Button 
           variant={"secondary"}
           className="pointer-events-auto h-8 px-[14px]"
         >
@@ -73,8 +73,8 @@ const Download: React.FC<DownloadProps> = ({ username, attributionImg, name }) =
               </Button>
             </div>
             </div>
-          <div className="w-[150px] h-[190px] bg-red-200 relative">
-          <Image className="hidden md:flex rounded-sm" src={attributionImg} alt='attribution image' objectFit="cover" fill={true}></Image>
+          <div className="w-[150px] h-[190px] hidden md:flex bg-slate-100 relative">
+          <Image className=" rounded-sm" src={attributionImg} alt='attribution image' objectFit="cover" fill={true}></Image>
           </div>
           </div>
 

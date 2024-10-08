@@ -6,6 +6,8 @@ import { PopoverDemo } from "./navmenu";
 import NavigationSlider from "./navigation-slider";
 import { Button } from "../ui/button";
 import { EmblaCarousel } from "./embla";
+import Favourite from "./favourite";
+import Download from "./download";
 interface NavProps {
   photo?: any;
 }
@@ -13,7 +15,7 @@ interface NavProps {
 const Nav: React.FC<NavProps> = ({ photo }) => {
   return (
     <>
-      <div className="lg:fixed left-0 top-0 z-[50] w-full overflow-hidden bg-white px-2 pt-3 pb-0 lg:pt-4 shadow-none lg:px-4">
+      <div className="left-0 top-0 z-[50] w-full overflow-hidden bg-white px-0 pb-0 pt-3 shadow-none lg:fixed lg:px-4 lg:pt-4">
         <nav className="flex items-center justify-between gap-4 border-b-0 lg:gap-8">
           <div className="flex w-full items-center gap-4 lg:gap-6">
             <Link href="/">
@@ -28,13 +30,15 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
 
           <div className="flex items-center gap-4 lg:gap-8">
             <Link
-              className="hidden whitespace-nowrap text-gray-500 hover:text-black text-sm sm:block"
+              className="hidden whitespace-nowrap text-sm text-gray-500 hover:text-black sm:block"
               href="/"
             >
               Get Photop+
             </Link>
             <Link className="hidden text-sm sm:block" href="/">
-              <Button className="" variant='outline'>Submit an image</Button>
+              <Button className="" variant="outline">
+                Submit an image
+              </Button>
             </Link>
             {/* <Link className="hidden text-sm sm:block lg:font-medium" href="/">
               Ipsum
@@ -47,41 +51,37 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
 
             <PopoverDemo></PopoverDemo>
           </div>
-
-          
         </nav>
-        {/* {photo &&  
-        
-        <div className="flex justify-between items-center mt-0 mb-0 lg:mb-0 lg:mt-[12px] pb-[12px]">
-        <div className="flex items-center gap-2">
-          <Avatar className="w-8 h-8">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>RM</AvatarFallback>
-          </Avatar>
-          <div className="">
-            <h1 className="text-sm leading-tight font-semibold">
-              {photo.photographerFullName}
-            </h1>
-            <h2 className="text-xs leading-tight text-gray-500">
-              {photo.username}
-            </h2>
+
+        {!photo && <NavigationSlider></NavigationSlider>}
+
+        {photo && (
+          <div className="mb-0 mt-4 flex items-center justify-between pb-[12px] lg:mb-0 lg:mt-8">
+            <div className="flex items-center gap-2">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src={photo.user.profile_image.medium} />
+                <AvatarFallback>RM</AvatarFallback>
+              </Avatar>
+              <div className="">
+                <h1 className="text-sm font-semibold leading-tight">
+                  {photo.user.name}
+                </h1>
+                <h2 className="text-xs leading-tight text-gray-500">
+                  {photo.user.username}
+                </h2>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Favourite item={photo.description}></Favourite>
+              <Download
+                name={photo.user.name}
+                username={photo.user.username}
+                attributionImg={photo.urls.regular}>
+
+                </Download>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Favourite item={photo}></Favourite>
-          <PopoverDownload photo={photo}/>
-        </div>
-      </div>
-
-        
-        } */}
-        {/* <PopoverDownload photo={photo}></PopoverDownload> */}
-
-        {/* <NavigationSlider></NavigationSlider> */}
-        {/* <CarouselSize></CarouselSize> */}
-          <NavigationSlider></NavigationSlider>
-          {/* <EmblaCarousel></EmblaCarousel> */}
-
+        )}
       </div>
     </>
   );

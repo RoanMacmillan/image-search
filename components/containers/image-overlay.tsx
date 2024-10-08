@@ -52,6 +52,8 @@ const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, img
         </div>
       </div>
 
+      
+
     </div>
   );
 };
