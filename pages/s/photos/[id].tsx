@@ -15,7 +15,7 @@ interface UnsplashImage {
   id: string;
   user: {
     name: string;
-
+    username: string;
     profile_image: {
       small: string;
       medium: string;
@@ -81,7 +81,7 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
       <Layout title="search">
         <Nav></Nav>
 
-        <div className="mt-auto hidden w-full overflow-hidden lg:block">
+        <div className="mt-6  w-full overflow-hidden">
           <h1 className="text-3xl font-bold">{capitalizeFirstLetter(slug)}</h1>
           {/* <p className="hidden lg:block mt-4 text-lg">The internets source for images.</p> */}
           {/* <p className="hidden lg:block mb-4 text-lg">Powered by creators around the world.</p> */}
@@ -95,7 +95,7 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
           </div> */}
         </div>
 
-        <ul className="mx-auto mt-6 md:columns-2 lg:mt-2 lg:columns-3 lg:gap-6">
+        <ul className="mx-auto mt-0 md:columns-2 lg:mt-2 lg:columns-3 lg:gap-6">
           {photoData.length > 0 &&
             photoData.map((item) => (
               <li key={item.id} className="">
@@ -115,6 +115,7 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
                   slugUrl={item.slug}
                   name={item.user.name}
                   imgName={capitalizeFirstLetter(item.alt_description)}
+                  accountName={item.user.username}
                 ></Overlay>
                 {/* <Image src={item.profile_image.large} alt='d' width={50} height={50}></Image> */}
 

@@ -28,7 +28,7 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
 
           <div className="flex items-center gap-4 lg:gap-8">
             <Link
-              className="hidden whitespace-nowrap text-sm sm:block"
+              className="hidden whitespace-nowrap text-gray-500 hover:text-black text-sm sm:block"
               href="/"
             >
               Get Photop+

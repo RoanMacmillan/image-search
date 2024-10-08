@@ -20,7 +20,9 @@ const Masonry = () => {
             <Overlay
               avatarSrc={item.profilePic}
               imgSrc={item.url}
-              name={item.username}
+              name={item.photographerFullName}
+              imgName={item.title}
+              accountName={item.username}
             ></Overlay>
           </BlurFade>
 

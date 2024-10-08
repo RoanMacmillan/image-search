@@ -76,9 +76,9 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
   return (
     <div className="embla relative overflow-hidden">
       <div className="" ref={emblaRef}>
-        <div className="flex gap-7">
+        <div className="flex gap-5 md:gap-7">
           {buttons.map((item) => (
-            <div className="embla__slide flex gap-7" key={item.id}>
+            <div className="embla__slide flex gap-5 md:gap-7" key={item.id}>
               {item.categories.map((category, index) => (
                     <Link  
                     
@@ -89,7 +89,8 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
                   {category}
                   
                   </Link>
-              ))}
+                  
+              ))} 
             </div>
           ))}
         </div>
@@ -101,7 +102,7 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
       >
         <ArrowLeftIcon className="w-4 h-4"></ArrowLeftIcon>
       </button>
-      <div className={` ${currentIndex === 0 ? 'hidden' : 'block'} gradient-background w-[70px] absolute z-1 left-0 top-0 h-full`}></div>
+      <div className={` ${currentIndex === 0 ? 'hidden' : 'block'} gradient-background w-[50px] md:w-[70px] absolute z-1 left-0 top-0 h-full`}></div>
 
       <button
         className={`${currentIndex === buttons.length - 1 ? "hidden" : "md:block"} hidden embla__prev z-50 absolute right-0 top-0`}
@@ -109,7 +110,7 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
       >
         <ArrowRightIcon className="w-4 h-4"></ArrowRightIcon>
       </button>
-      <div className={` ${currentIndex === buttons.length - 1 ? 'hidden' : 'block'} rotate-180 gradient-background w-[70px] absolute z-1 right-0 top-0 h-full`}></div>
+      <div className={` ${currentIndex === buttons.length - 1 ? 'hidden' : 'block'} rotate-180 gradient-background w-[50px] md:w-[70px] absolute z-1 right-0 top-0 h-full`}></div>
 
       {/* <button onClick={logIndex}>log</button> */}
     </div>

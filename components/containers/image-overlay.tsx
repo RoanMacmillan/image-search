@@ -12,9 +12,10 @@ interface OverlayProps {
   slugUrl?: string;
   name: string;
   imgName: string;
+  accountName: string;
 }
 
-const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, imgName }) => {
+const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, imgName, accountName }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleLoad = () => {
@@ -40,7 +41,7 @@ const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, img
         <div className="flex justify-end gap-2">
         <Favourite item={imgName}></Favourite>
 
-        <Download attributionImg={imgSrc} username={name}></Download>
+        <Download attributionImg={imgSrc} username={accountName} name={name}></Download>
         </div>
 
 
