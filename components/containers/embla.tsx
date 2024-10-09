@@ -1,21 +1,22 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ArrowBottomLeftIcon, ArrowBottomRightIcon, ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import {
+  ArrowBottomLeftIcon,
+  ArrowBottomRightIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+} from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-interface EmblaProps {
+interface EmblaProps {}
 
-
-}
-
-export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
+export const EmblaCarousel: React.FC<EmblaProps> = ({}) => {
   const [emblaRef, emblaApi] = useEmblaCarousel();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const router = useRouter();
-
 
   const isActive = (pathname: string) => router.asPath === pathname;
 
@@ -34,7 +35,7 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
 
   const logIndex = () => {
     console.log(`The current index is ${currentIndex}`);
-    console.log(`${buttons.length} buttons`)
+    console.log(`${buttons.length} buttons`);
     // console.log(buttons.length - 2);
   };
 
@@ -44,7 +45,10 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
         // Reset the carousel index if navigating to the home page
         localStorage.removeItem("carouselIndex");
       } else if (emblaApi) {
-        localStorage.setItem("carouselIndex", JSON.stringify(emblaApi.selectedScrollSnap()));
+        localStorage.setItem(
+          "carouselIndex",
+          JSON.stringify(emblaApi.selectedScrollSnap()),
+        );
       }
     };
 
@@ -80,55 +84,51 @@ export const EmblaCarousel: React.FC <EmblaProps> = ({}) => {
           {buttons.map((item) => (
             <div className="embla__slide flex gap-5 md:gap-7" key={item.id}>
               {item.categories.map((category, index) => (
-                    <Link  
-                    
-              href={`/s/photos/${encodeURIComponent(category.toLowerCase())}`}
-                    
-                    
-                    key={index} className={`${isActive(`/s/photos/${category.toLowerCase()}`) ? 'text-black' : ''} hover:text-black transition-colors `}>
+                <Link
+                  href={`/s/photos/${encodeURIComponent(category.toLowerCase())}`}
+                  key={index}
+                  className={`${isActive(`/s/photos/${category.toLowerCase()}`) ? "text-black" : ""} transition-colors hover:text-black`}
+                >
                   {category}
-                  
-                  </Link>
-                  
-              ))} 
+                </Link>
+              ))}
             </div>
           ))}
         </div>
       </div>
       <button
-        className={`${currentIndex === 0 ? "hidden" : "md:block"} hidden  embla__prev h-full absolute left-0 z-50 top-[0px]`}
+        className={`${currentIndex === 0 ? "hidden" : "md:block"} embla__prev absolute left-0 top-[0px] z-50 hidden h-full`}
         onClick={scrollPrev}
         disabled={currentIndex === 0}
       >
-        <ArrowLeftIcon className="w-4 h-4"></ArrowLeftIcon>
+        <ArrowLeftIcon className="h-4 w-4"></ArrowLeftIcon>
       </button>
-      <div className={` ${currentIndex === 0 ? 'hidden' : 'block'} gradient-background w-[50px] md:w-[70px] absolute z-1 left-0 top-0 h-full`}></div>
+      <div
+        className={` ${currentIndex === 0 ? "hidden" : "block"} gradient-background z-1 absolute left-0 top-0 h-full w-[50px] md:w-[70px]`}
+      ></div>
 
       <button
-        className={`${currentIndex === buttons.length - 1 ? "hidden" : "md:block"} hidden embla__prev z-50 absolute right-0 top-0`}
+        className={`${currentIndex === buttons.length - 1 ? "hidden" : "md:block"} embla__prev absolute right-0 top-0 z-50 hidden`}
         onClick={scrollNext}
       >
-        <ArrowRightIcon className="w-4 h-4"></ArrowRightIcon>
+        <ArrowRightIcon className="h-4 w-4"></ArrowRightIcon>
       </button>
-      <div className={` ${currentIndex === buttons.length - 1 ? 'hidden' : 'block'} rotate-180 gradient-background w-[50px] md:w-[70px] absolute z-1 right-0 top-0 h-full`}></div>
+      <div
+        className={` ${currentIndex === buttons.length - 1 ? "hidden" : "block"} gradient-background z-1 absolute right-0 top-0 h-full w-[50px] rotate-180 md:w-[70px]`}
+      ></div>
 
       {/* <button onClick={logIndex}>log</button> */}
     </div>
   );
 };
 
-
-
-
-
 const buttons = [
-    { id: 1, categories: ["Interior", "Nature", "Ocean", "Beach"] },
-    { id: 2, categories: ["Food", "Architecture", "Technology", "Fashion"] },
-    { id: 3, categories: ["Wildlife", "Travel", "Landscape", "Art"] },
-    { id: 4, categories: ["Music", "Sports", "Automotive", "Fitness"] },
-    { id: 5, categories: ["Health", "Education", "Business", "Photography"] },
-    { id: 6, categories: ["Science", "Space", "History", "Movies"] },
-    { id: 7, categories: ["Books", "Design", "Travel", "Nature"] },
-    { id: 8, categories: ["Innovation", "Culture", "Tech", "Sports"] },
-  ];
-  
+  { id: 1, categories: ["Interior", "Nature", "Ocean", "Beach"] },
+  { id: 2, categories: ["Food", "Architecture", "Technology", "Fashion"] },
+  { id: 3, categories: ["Wildlife", "Travel", "Landscape", "Art"] },
+  { id: 4, categories: ["Music", "Sports", "Automotive", "Fitness"] },
+  { id: 5, categories: ["Health", "Education", "Business", "Photography"] },
+  { id: 6, categories: ["Science", "Space", "History", "Movies"] },
+  { id: 7, categories: ["Books", "Design", "Travel", "Nature"] },
+  { id: 8, categories: ["Innovation", "Culture", "Tech", "Sports"] },
+];

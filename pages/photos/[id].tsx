@@ -7,12 +7,11 @@ import { CalendarIcon, CameraIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import Tags from "@/components/containers/tags";
 
-
 interface Topic {
-
   title: string;
   id: string;
 }
+
 
 interface UnsplashImage {
   id: string;
@@ -49,7 +48,6 @@ interface PhotoDetailPageProps {
 
 const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({ photoData }) => {
   const dateStr = photoData.created_at;
-
   const date = new Date(dateStr);
 
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -94,13 +92,13 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({ photoData }) => {
           alt={photoData.description || "Unsplash Image"}
           width={500}
           height={500}
-          className="bg-slate-200 mx-auto"
+          className="mx-auto bg-slate-200"
           priority={true}
         />
 
         <div className="mt-3 lg:mt-8">
           <div className="flex justify-between">
-            <div className="justify-between lg:flex lg:w-1/4">
+            <div className="justify-between lg:flex lg:gap-14">
               <div>
                 <p className="text-sm text-gray-500">Views</p>
                 <span>{photoData.views.toLocaleString()}</span>
@@ -112,10 +110,16 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({ photoData }) => {
               </div>
 
               <div className="hidden lg:block">
-                <p className="mt-4 text-sm text-gray-500 lg:mt-0">Featured in</p>
-                <span>{photoData.topics[0].title}</span>
-              </div>
+                <p className="mt-4 text-sm text-gray-500 lg:mt-0">
+                  Featured in
+                </p>
 
+                {photoData.topics.length > 0 ? (
+                  <span>{photoData.topics[0].title}</span>
+                ) : (
+                  <span>--</span>
+                )}
+              </div>
             </div>
 
             <div className="flex gap-2">
@@ -152,6 +156,10 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({ photoData }) => {
       <div className="mb-4 mt-6 lg:mb-6 lg:mt-6">
         <Tags btns={photoData.tags}></Tags>
       </div>
+
+    {/* <ul className="mx-auto mt-10 md:columns-2 lg:mt-10 lg:columns-3 lg:gap-6"> */}
+          {/* </ul> */}
+
     </Layout>
   );
 };

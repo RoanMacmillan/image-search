@@ -11,7 +11,7 @@ import { getRelatedWords } from "@/lib/getRelatedWords";
 import Overlay from "@/components/containers/image-overlay";
 import { Toaster } from "@/components/ui/toaster";
 
-interface UnsplashImage {
+export interface UnsplashImage {
   id: string;
   user: {
     name: string;
@@ -52,25 +52,13 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
   error,
   slug,
 }) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  // const [wordData, setWordData] = useState<RelatedWords[]>([]);
 
-  // useEffect(() => {
-  //   const fetchWords = async () => {
-  //     const words = await getRelatedWords(slug);
-  //     setWordData(words);
-  //   };
-
-  //   fetchWords();
-  // }, [wordData]);
 
   useEffect(() => {
     console.log(photoData);
   }, []);
 
-  const handleLoad = () => {
-    setLoading(true);
-  };
+  
 
   if (error) {
     return <div>{error}</div>;
@@ -83,16 +71,7 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
 
         <div className="mt-6  w-full overflow-hidden">
           <h1 className="text-3xl font-bold">{capitalizeFirstLetter(slug)}</h1>
-          {/* <p className="hidden lg:block mt-4 text-lg">The internets source for images.</p> */}
-          {/* <p className="hidden lg:block mb-4 text-lg">Powered by creators around the world.</p> */}
-
-          {/* <div className="mt-4 flex gap-2">
-            {wordData.map((item, index) => (
-              <Button size={"lg"} variant={"outline"} key={index}>
-                {capitalizeFirstLetter(item.word)}
-              </Button>
-            ))}
-          </div> */}
+       
         </div>
 
         <ul className="mx-auto mt-0 md:columns-2 lg:mt-2 lg:columns-3 lg:gap-6">
@@ -161,13 +140,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-const related = [
-  "related",
-  "tags",
-  "placeholder",
-  "goes",
-  "here",
-  "images",
-  "photos",
-  "illustrations",
-];
+

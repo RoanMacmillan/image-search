@@ -28,9 +28,10 @@ const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, img
         <Image
           src={imgSrc}
           alt="hello"
-          width={500}
+          width={800}
           className={`${!loading ? "animate-pulse" : ""} relative bg-slate-200 mt-6`}
-          height={500}
+          height={800}
+          
           onLoad={handleLoad}
           priority={true}
         ></Image>
@@ -51,7 +52,7 @@ const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, img
         <span className="text-white font-medium pointer-events-auto">{name}</span>
         </div>
       </div>
-
+ 
       
 
     </div>
