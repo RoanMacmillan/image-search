@@ -6,8 +6,8 @@ import React from "react";
 import HomeCarousel from "@/components/containers/home-carousel";
 import Related from "@/components/containers/related";
 import { UnsplashImage } from "@/pages/s/photos/[id]";
-
 import { GetStaticProps } from "next";
+import Topic from "@/components/containers/topic";
 
 interface HomeProps {
   images: UnsplashImage[];
@@ -20,10 +20,7 @@ const Home = ({ images }: HomeProps) => {
         <Nav></Nav>
         <HomeCarousel></HomeCarousel>
         {/* <SearchComponent></SearchComponent> */}
-       
-
-         
-
+        {/* <Topic></Topic> */}
         <Related images={images}></Related>
         {/* <EmblaCarousel></EmblaCarousel> */}
       </Layout>
