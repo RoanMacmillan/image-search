@@ -56,7 +56,8 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
         {!photo && <NavigationSlider></NavigationSlider>}
 
         {photo && (
-          <div className="mb-0 mt-4 flex items-center justify-between pb-[12px] lg:mb-0 lg:mt-8">
+          
+          <div className="mb-0 mt-6 flex items-center justify-between pb-[12px] lg:mb-0 lg:mt-8">
             <div className="flex items-center gap-2">
               <Avatar className="h-8 w-8">
                 <AvatarImage src={photo.user.profile_image.medium} />

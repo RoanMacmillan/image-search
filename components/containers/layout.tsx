@@ -8,15 +8,16 @@ import { Toaster } from "@/components/ui/sonner"
 type LayoutProps = {
   children: React.ReactNode;
   title?: string;
+  slug?: string;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children, title = 'My App' }) => {
+const Layout: React.FC<LayoutProps> = ({ slug, children, title = 'My App' }) => {
 
   const router = useRouter();
   const { pathname } = router;
 
   return (
-    <div className='px-2 max-w-[1300px] mx-auto relative'>
+    <div className={`px-2 ${pathname.startsWith('/photos/') ? 'lg:px-4' : 'max-w-[1300px]'} mx-auto relative`}>
       <Head>
         <title>{title}</title>
         <meta charSet="UTF-8" />
