@@ -26,7 +26,7 @@ const Layout: React.FC<LayoutProps> = ({ slug, children, title = 'My App' }) => 
       <header>
         {/* <Nav /> */}
       </header>
-      <main className={` ${pathname === '/' ? ' lg:mt-[175px]' : ' lg:mt-[160px]'}`}>
+      <main className={` ${pathname === '/' ? ' lg:mt-[175px]' : ' lg:mt-[175px]'}`}>
         {children}
         <Toaster theme='light' className=''></Toaster>
       </main>

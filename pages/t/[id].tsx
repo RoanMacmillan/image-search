@@ -61,6 +61,7 @@ const Photo: React.FC<PhotoProps> = ({ photo }) => {
             className="text-md font-semibold lg:mt-4"
           >{`Submit to ${photo.title}`}</Button>
         </div>
+        <div className="flex gap-4">
         <ContributorsCard
           contributors={photo.top_contributors}
         ></ContributorsCard>
@@ -68,6 +69,7 @@ const Photo: React.FC<PhotoProps> = ({ photo }) => {
           imgUrl={photo.cover_photo.urls.regular}
           author={photo.cover_photo.user.name}
         ></TopicCard>
+        </div>
       </div>
       <ul className="mx-auto mt-0 md:columns-2 lg:mt-7 lg:columns-3 lg:gap-6">
         {photo.preview_photos.map((item, index) => (
