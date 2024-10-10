@@ -26,10 +26,10 @@ const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, img
     <div className="image-container relative overflow-hidden">
       <Link className="" href={`/photos/${slugUrl}`}>
         <Image
-          src={imgSrc}
+          src={imgSrc} 
           alt="hello"
           width={800}
-          className={`${!loading ? "animate-pulse" : ""} relative bg-slate-200 mt-6`}
+          className={`${!loading ? "animate-pulse" : ""} relative bg-slate-200 mt-4 lg:mt-6`}
           height={800}
           
           onLoad={handleLoad}

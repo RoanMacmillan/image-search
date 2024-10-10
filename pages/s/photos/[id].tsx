@@ -123,7 +123,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const data = await response.json();
     console.log(data);
     return {
-      props: {
+      props: { 
         photoData: data.results,
         error: null,
         slug: id,

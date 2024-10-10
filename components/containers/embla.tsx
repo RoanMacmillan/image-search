@@ -79,9 +79,11 @@ export const EmblaCarousel: React.FC<EmblaProps> = ({}) => {
 
   return (
     <div className="embla relative overflow-hidden">
+          <button type="button" onClick={logIndex}>log</button>
+
       <div className="" ref={emblaRef}>
         <div className="flex gap-5 md:gap-7">
-          {buttons.map((item) => (
+          {/* {buttons.map((item) => (
             <div className="embla__slide flex gap-5 md:gap-7" key={item.id}>
               {item.categories.map((category, index) => (
                 <Link
@@ -91,8 +93,16 @@ export const EmblaCarousel: React.FC<EmblaProps> = ({}) => {
                 >
                   {category}
                 </Link>
-              ))}
+              ))} */}
+
+          {topics.map((item, index) => (
+
+            <div className="embla__slide flex gap-5 md:gap-7 bg-red-300" key={index}>
+              
+            {item.name}
+
             </div>
+
           ))}
         </div>
       </div>
@@ -123,12 +133,29 @@ export const EmblaCarousel: React.FC<EmblaProps> = ({}) => {
 };
 
 const buttons = [
-  { id: 1, categories: ["Interior", "Nature", "Ocean", "Beach"] },
-  { id: 2, categories: ["Food", "Architecture", "Technology", "Fashion"] },
-  { id: 3, categories: ["Wildlife", "Travel", "Landscape", "Art"] },
+  { id: 1, categories: ["3D Renders", "Animals", "Architecture & Interiors", "Beach"] },
+  { id: 2, categories: ["Food", "Experimental", "Technology", "Fashion & Beauty"] },
+  { id: 3, categories: ["Film", "Food & Drink", "People", "Sport"] },
   { id: 4, categories: ["Music", "Sports", "Automotive", "Fitness"] },
   { id: 5, categories: ["Health", "Education", "Business", "Photography"] },
   { id: 6, categories: ["Science", "Space", "History", "Movies"] },
   { id: 7, categories: ["Books", "Design", "Travel", "Nature"] },
   { id: 8, categories: ["Innovation", "Culture", "Tech", "Sports"] },
+];
+
+
+
+const topics = [
+  { name: "3D Renders", slug: "3d-renders" },
+  { name: "Animals", slug: "animals" },
+  { name: "Architecture & Interiors", slug: "architecture-interiors" },
+  { name: "Experimental", slug: "experimental" },
+  { name: "Fashion & Beauty", slug: "fashion-beauty" },
+  { name: "Film", slug: "film" },
+  { name: "Food & Drink", slug: "food-drink" },
+  { name: "Nature", slug: "nature" },
+  { name: "People", slug: "people" },
+  { name: "Sports", slug: "sports" },
+  { name: "Travel", slug: "travel" },
+  { name: "Rising Stars", slug: "rising-stars" }
 ];

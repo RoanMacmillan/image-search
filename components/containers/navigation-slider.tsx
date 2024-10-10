@@ -11,6 +11,7 @@ import {
 import { Separator } from "../ui/separator";
 import { EmblaCarousel } from "./embla";
 import Link from "next/link";
+import Topic from "./topic";
 
 const NavigationSlider = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const NavigationSlider = () => {
 
   return (
     <>
-      <div className="mt-6 flex items-center text-sm text-gray-500">
+      <div className="mt-6 flex items-center overflow-hidden text-sm text-gray-500">
         <ul className="hidden items-center gap-7 md:flex">
           {mainBtns.map((item, index) => (
             <Link
@@ -46,32 +47,13 @@ const NavigationSlider = () => {
           orientation="vertical"
           className="ml-7 mr-7 hidden h-8 md:block"
         ></Separator>
-
+{/* 
         <EmblaCarousel
-        ></EmblaCarousel>
+        ></EmblaCarousel> */}
 
-        {/* <Carousel
-          opts={{
-            align: "start",
-          }}
-          className=" mt-0 mr-auto "
-        >
-          <CarouselContent>
-            {buttons.map((btn, index) => (
-              <CarouselItem key={index} className="basis-1/10 pl-8">
-                <button
-                    onClick={() => handleCategory(btn)}
-                    type="button"
-                    className="p-0 text-sm font-semibold text-[#767676]"
-                  >
-                {btn}
-                </button>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext className="" />
-        </Carousel> */}
+        <Topic></Topic>
+
+     
       </div>
       <Separator className="mt-4 block" orientation="horizontal"></Separator>
     </>
@@ -80,32 +62,6 @@ const NavigationSlider = () => {
 
 export default NavigationSlider;
 
-const buttons = [
-  "Interior",
-  "Nature",
-  "Ocean",
-  "Beach",
-  "Food",
-  "Architecture",
-  "Technology",
-  "Fashion",
-  "Wildlife",
-  "Travel",
-  "Landscape",
-  "Art",
-  "Music",
-  "Sports",
-  "Automotive",
-  "Fitness",
-  "Health",
-  "Education",
-  "Business",
-  "Photography",
-  "Science",
-  "Space",
-  "History",
-  "Movies",
-  "Books",
-];
+
 
 const mainBtns = ["Photos", "Illustrations", "Photop+"];

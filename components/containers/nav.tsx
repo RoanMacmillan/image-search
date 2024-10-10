@@ -53,7 +53,12 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
           </div>
         </nav>
 
-        {!photo && <NavigationSlider></NavigationSlider>}
+        {!photo && 
+        
+        <NavigationSlider></NavigationSlider>
+        // <div>place</div>
+        
+        }
 
         {photo && (
           

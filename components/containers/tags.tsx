@@ -15,7 +15,7 @@ interface Btn {
     title: string;
   }
   
- 
+  
 
 const Tags: React.FC<TagsProps> = ({ btns }) => {
   const router = useRouter();
