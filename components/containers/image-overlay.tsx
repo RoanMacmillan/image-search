@@ -29,7 +29,7 @@ const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, img
           src={imgSrc} 
           alt="hello"
           width={800}
-          className={`${!loading ? "animate-pulse" : ""} relative bg-slate-200 mt-4 lg:mt-6`}
+          className={`${!loading ? "animate-pulse" : ""} relative bg-slate-200 mt-3 lg:mt-6`}
           height={800}
           
           onLoad={handleLoad}
@@ -37,7 +37,7 @@ const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, img
         ></Image>
       </Link>
 
-      <div className="gradient"></div>
+      <div className="gradient hidden md:block"></div>
       <div className="hover-element hidden md:flex flex-col justify-between p-4 pb-10">
         <div className="flex justify-end gap-2">
         <Favourite item={imgName}></Favourite>

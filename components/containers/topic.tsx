@@ -1,14 +1,19 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-
 const Topic = () => {
+
+  const router = useRouter();
+  const isActive = (pathname: string) => router.asPath === pathname;
+
+
   return (
     <ul className="flex items-center gap-7 overflow-hidden">
       {topics.map((topic, index) => (
         <Link
           href={`/t/${topic.slug}`}
           key={index}
-          className="hover:text-black text-nowrap"
+          className={`${isActive(`/t/${topic.slug}`) ? 'text-black font-semibold' : '' } hover:text-black transition-colors text-nowrap`}
         >
           {topic.name}
         </Link>

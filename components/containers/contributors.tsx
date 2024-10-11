@@ -18,12 +18,13 @@ const ContributorsCard: React.FC<ContributorsCardProps> = ({
   contributors,
 }) => {
   return (
-    <div className="relative hidden h-[150px] flex-col overflow-hidden rounded-sm border p-4 sm:h-[150px] md:h-[200px] lg:mt-0 lg:flex lg:h-[300px] lg:w-[300px] lg:rounded-md">
+    <div className="relative hidden h-[150px] flex-col overflow-hidden rounded-sm border p-6 sm:h-[150px] md:h-[200px] lg:mt-0 lg:flex lg:h-[300px] lg:w-[300px] lg:rounded-md">
+
+      <ul className="overflow-hidden h-full flex flex-col justify-between">
       <h1 className="font-semibold">Top contributors</h1>
 
-      <ul className="overflow-hidden">
         {contributors.slice(0, 4).map((item, index) => (
-          <li className="flex items-center gap-2 mt-4" key={index}>
+          <li className="flex items-center gap-2 mt-0" key={index}>
             <Image
               className="rounded-full"
               src={item.profile_image.medium}

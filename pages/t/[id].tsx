@@ -53,7 +53,8 @@ const Photo: React.FC<PhotoProps> = ({ photo }) => {
             Curated by Photop
           </h2>
           <p className="mb-4 mt-3 max-w-[500px] sm:text-sm lg:text-lg">
-            {photo.description}
+            {/* {photo.description} */}
+            {photo.slug === 'rising-stars' ? 'Discover the best new photographers on Photop' : photo.description}
           </p>
           <Button
             variant={"default"}
@@ -71,7 +72,7 @@ const Photo: React.FC<PhotoProps> = ({ photo }) => {
         ></TopicCard>
         </div>
       </div>
-      <ul className="mx-auto mt-0 md:columns-2 lg:mt-7 lg:columns-3 lg:gap-6">
+      <ul className="mx-auto mt-3 md:columns-2 lg:mt-7 lg:columns-3 lg:gap-6">
         {photo.preview_photos.map((item, index) => (
           <li key={index}>
             {/* {item.slug} */}

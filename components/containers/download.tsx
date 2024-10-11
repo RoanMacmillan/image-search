@@ -33,9 +33,10 @@ const Download: React.FC<DownloadProps> = ({ username, attributionImg, name }) =
       <DialogTrigger asChild>
         <Button 
           variant={"secondary"}
-          className="pointer-events-auto h-8 px-[14px]"
+          className="pointer-events-auto flex gap-2 items-center h-8 px-[14px]"
         >
-          <DownloadIcon></DownloadIcon>
+          <DownloadIcon className="hidden md:block"></DownloadIcon>
+          <span className="md:sr-only not-sr-only" >Download</span>
         </Button>
       </DialogTrigger>
 
