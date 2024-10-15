@@ -11,7 +11,7 @@ interface RelatedProps {
 
 const Related: React.FC<RelatedProps> = ({ images }) => {
   return (
-    <ul className="mx-auto mt-0 md:columns-2 lg:mt-2 lg:columns-3 lg:gap-6">
+    <ul className="mx-auto mt-0 md:columns-2 lg:mt-8 lg:columns-3 lg:gap-6">
       {images.map((item, index) => (
         <li
           className={`group relative lg:mb-0 lg:hover:brightness-100`}
