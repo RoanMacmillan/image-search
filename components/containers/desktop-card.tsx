@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import Slideshow from "./slideshow";
 import { ImPlus } from "react-icons/im";
+import Premium from "./premium";
 
 const WideCard = () => {
   return (
@@ -25,9 +26,12 @@ const WideCard = () => {
             Cancel anytime.
           </p>
 
-          <Button className="mt-auto font-semibold text-sm flex gap-1 w-[170px]" variant={"default"} type="button">
+          {/* <Button className="mt-auto font-semibold text-sm flex gap-1 w-[170px]" variant={"default"} type="button">
             <span>Upgrade to</span><strong className="font-bold">Photop+</strong>
-          </Button>
+          </Button> */}
+    <div className="mt-auto">
+          <Premium></Premium>
+          </div>
         </div>
 
         {/* <div className="absolute inset-0"> */}

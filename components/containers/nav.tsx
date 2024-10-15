@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import { EmblaCarousel } from "./embla";
 import Favourite from "./favourite";
 import Download from "./download";
+import Premium from "./premium";
 interface NavProps {
   photo?: any;
 }
@@ -29,12 +30,11 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
           </div>
 
           <div className="flex items-center gap-4 lg:gap-8">
-            <Link
+            <div
               className="hidden whitespace-nowrap text-sm text-gray-500 hover:text-black sm:block"
-              href="/"
             >
-              Get Photop+
-            </Link>
+              <Premium variant="navBtn"></Premium>
+            </div>
             <Link className="hidden text-sm sm:block" href="/">
               <Button className="" variant="outline">
                 Submit an image

@@ -159,7 +159,7 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
 
       {/* slug detail ends here */}
 
-      <div className="mb-4 mt-6 max-w-[90%] lg:mb-6 lg:mt-6">
+      <div className="mb-4 mt-6 lg:mb-6 lg:mt-6">
         <Tags btns={photoData.tags}></Tags>
       </div>
 
