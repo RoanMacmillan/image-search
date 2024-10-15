@@ -34,7 +34,9 @@ export interface UnsplashImage {
   width: number;
   height: number;
   slug: string;
+ 
 }
+
 
 interface PhotoDetailProps {
   photoData: UnsplashImage[];
@@ -42,10 +44,7 @@ interface PhotoDetailProps {
   slug: string;
 }
 
-interface RelatedWords {
-  word: string;
-  score: number;
-}
+
 
 const PhotoDetail: React.FC<PhotoDetailProps> = ({
   photoData,
@@ -106,6 +105,11 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
               </li>
             ))}
         </ul>
+
+
+           
+
+
       </Layout>
     </>
   );

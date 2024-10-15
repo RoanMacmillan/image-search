@@ -6,12 +6,13 @@ import React, { useEffect } from "react";
 import { CalendarIcon, CameraIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import Tags from "@/components/containers/tags";
+import Overlay from "@/components/containers/image-overlay";
+import { capitalizeFirstLetter } from "@/utils/capitilize";
 
 interface Topic {
   title: string;
   id: string;
 }
-
 
 interface UnsplashImage {
   id: string;
@@ -20,9 +21,10 @@ interface UnsplashImage {
   slug: string;
   downloads: number;
   created_at: string;
+
   topics: Topic[];
   description: string | null;
-  alt_description: string | null;
+  alt_description: string;
   tags: [];
   urls: {
     small: string;
@@ -44,9 +46,13 @@ interface UnsplashImage {
 
 interface PhotoDetailPageProps {
   photoData: UnsplashImage;
+  photoData2: UnsplashImage[];
 }
 
-const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({ photoData }) => {
+const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
+  photoData,
+  photoData2,
+}) => {
   const dateStr = photoData.created_at;
   const date = new Date(dateStr);
 
@@ -153,13 +159,33 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({ photoData }) => {
 
       {/* slug detail ends here */}
 
-      <div className="mb-4 mt-6 lg:mb-6 max-w-[90%] lg:mt-6">
+      <div className="mb-4 mt-6 max-w-[90%] lg:mb-6 lg:mt-6">
         <Tags btns={photoData.tags}></Tags>
       </div>
 
-    {/* <ul className="mx-auto mt-10 md:columns-2 lg:mt-10 lg:columns-3 lg:gap-6"> */}
-          {/* </ul> */}
+      {/* <ul className="mx-auto mt-10 md:columns-2 lg:mt-10 lg:columns-3 lg:gap-6"> */}
+      {/* </ul> */}
 
+      <div className="max-w-[1300px] mx-auto mt-10 lg:mt-20">
+
+      <h2 className="font-bold text-xl lg:text-2xl">Related Images</h2>
+
+
+      <ul className="mx-auto md:columns-2  lg:columns-3 lg:gap-6">
+        {photoData2.map((item) => (
+          <li key={item.id}>
+            <Overlay
+              avatarSrc={item.user.profile_image.small}
+              imgSrc={item.urls.regular}
+              slugUrl={item.slug}
+              name={item.user.name}
+              imgName={capitalizeFirstLetter(item.alt_description)}
+              accountName={item.user.username}
+            />
+          </li>
+        ))}
+      </ul>
+      </div>
     </Layout>
   );
 };
@@ -168,13 +194,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params!;
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
   const url = `https://api.unsplash.com/photos/${id}?client_id=${apiKey}`;
+  const url2 = `https://api.unsplash.com/search/photos?query=${id}&per_page=10&client_id=${apiKey}`;
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    // const response = await fetch(url);
+    // const data = await response.json();
+
+    const [response, response2] = await Promise.all([fetch(url), fetch(url2)]);
+
+    const data1 = await response.json();
+    const data2 = await response2.json();
+
     return {
       props: {
-        photoData: data,
+        photoData: data1,
+        photoData2: data2.results,
       },
     };
   } catch (error) {
