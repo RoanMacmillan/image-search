@@ -9,6 +9,7 @@ import { EmblaCarousel } from "./embla";
 import Favourite from "./favourite";
 import Download from "./download";
 import Premium from "./premium";
+import { Upload } from "./upload";
 interface NavProps {
   photo?: any;
 }
@@ -35,11 +36,9 @@ const Nav: React.FC<NavProps> = ({ photo }) => {
             >
               <Premium variant="navBtn"></Premium>
             </div>
-            <Link className="hidden text-sm sm:block" href="/">
-              <Button className="" variant="outline">
-                Submit an image
-              </Button>
-            </Link>
+            <div className="hidden text-sm sm:block">
+             <Upload></Upload>
+            </div>
             {/* <Link className="hidden text-sm sm:block lg:font-medium" href="/">
               Ipsum
             </Link> */}
