@@ -8,10 +8,12 @@ import { Button } from "@/components/ui/button";
 import Tags from "@/components/containers/tags";
 import Overlay from "@/components/containers/image-overlay";
 import { capitalizeFirstLetter } from "@/utils/capitilize";
+import Similar from "@/components/containers/similar";
 
 interface Topic {
   title: string;
   id: string;
+  slug: string;
 }
 
 interface UnsplashImage {
@@ -78,8 +80,9 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
   ];
 
   useEffect(() => {
-    console.log(photoData);
-    console.log(`/photos/${photoData.slug}`);
+    // console.log(photoData);
+    // console.log(`/photos/${photoData.slug}`);
+    console.log(`topic: ${photoData.topics[0].title}`);
 
     return () => {
       console.log("cleanup");
@@ -186,6 +189,9 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
         ))}
       </ul>
       </div>
+
+      <Similar relatedPhoto={photoData.topics[0].title}></Similar>
+
     </Layout>
   );
 };
