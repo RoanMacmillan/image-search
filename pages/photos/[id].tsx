@@ -196,7 +196,7 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
         
 
 
-      <Similar relatedPhoto={photoData.topics[0].title}></Similar>
+      {/* <Similar relatedPhoto={photoData.topics[0].title}></Similar> */}
 
       </div>
 
