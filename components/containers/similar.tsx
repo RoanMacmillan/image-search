@@ -35,7 +35,7 @@ interface UnsplashImage {
   };
 }
 
-const Similar: React.FC<SimilarProps> = (relatedPhoto) => {
+const Similar: React.FC<SimilarProps> = ({relatedPhoto}) => {
   const [state, setState] = useState<UnsplashImage[]>([]);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ const Similar: React.FC<SimilarProps> = (relatedPhoto) => {
 
     <ul className="mx-auto md:columns-2  lg:columns-3 lg:gap-6">
 
-    {state.map((item:any) => (
+    {state.map((item: UnsplashImage) => (
 
       <li key={item.id}>
 

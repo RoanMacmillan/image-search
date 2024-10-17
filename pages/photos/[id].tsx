@@ -169,7 +169,7 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
       {/* <ul className="mx-auto mt-10 md:columns-2 lg:mt-10 lg:columns-3 lg:gap-6"> */}
       {/* </ul> */}
 
-      <div className="max-w-[1300px] mx-auto mt-10 lg:mt-20">
+      {/* <div className="max-w-[1300px] mx-auto mt-10 lg:mt-20">
 
       <h2 className="font-bold text-xl lg:text-2xl">Related Images</h2>
 
@@ -188,9 +188,17 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
           </li>
         ))}
       </ul>
-      </div>
+      </div> */}
+
+      <div className="max-w-[1300px] mx-auto mt-10 lg:mt-20">
+
+      <h2 className="font-bold text-xl lg:text-2xl">Related Images</h2>
+        
+
 
       <Similar relatedPhoto={photoData.topics[0].title}></Similar>
+
+      </div>
 
     </Layout>
   );
