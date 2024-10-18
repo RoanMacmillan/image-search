@@ -4,20 +4,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { capitalizeFirstLetter } from "@/utils/capitilize";
 
-interface TagsProps {
+interface TagListProps {
   // Define your props here
   btns: Btn[];
   // item: string;
 }
 
 interface Btn {
-    type: number;
     title: string;
   }
   
   
 
-const Tags: React.FC<TagsProps> = ({ btns }) => {
+const TagList: React.FC<TagListProps> = ({ btns }) => {
   const router = useRouter();
 
   // Your component logic here
@@ -35,4 +34,4 @@ const Tags: React.FC<TagsProps> = ({ btns }) => {
   );
 };
 
-export default Tags;
+export default TagList;
