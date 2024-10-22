@@ -183,12 +183,11 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
 
       <h2 className="font-bold text-xl lg:text-2xl">Related Images</h2>
         
-        {photoData.tags.length > 0 ? (
+        {/* {photoData.tags.length > 0 ? (
           <Similar relatedPhoto={photoData.tags[0].title}></Similar>
         ) : ( 
-          // <Similar relatedPhoto={photoData.tags[0].title}></Similar>
           <div>No related photos found</div>
-        )}
+        )} */}
 
       {/* <Similar relatedPhoto={photoData.topics[0].title}></Similar> */}
 
