@@ -9,6 +9,8 @@ import TagList from "@/components/containers/tags";
 import Overlay from "@/components/containers/image-overlay";
 import { capitalizeFirstLetter } from "@/utils/capitilize";
 import Similar from "@/components/containers/similar";
+import axios from "axios";
+import Related from "@/components/containers/related";
 
 interface Topic {
   title: string;
@@ -17,10 +19,8 @@ interface Topic {
 }
 
 interface Tag {
-
   title: string;
 }
-
 
 interface UnsplashImage {
   id: string;
@@ -31,7 +31,7 @@ interface UnsplashImage {
   created_at: string;
 
   topics: Topic[];
-  description: string | null; 
+  description: string | null;
   alt_description: string;
   tags: Tag[];
   urls: {
@@ -52,18 +52,14 @@ interface UnsplashImage {
   };
 }
 
-
-
-
-
 interface PhotoDetailPageProps {
   photoData: UnsplashImage;
-  photoData2: UnsplashImage[];
+  relatedData: UnsplashImage[];
 }
 
 const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
   photoData,
-  photoData2,
+  relatedData,
 }) => {
   const dateStr = photoData.created_at;
   const date = new Date(dateStr);
@@ -89,11 +85,9 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
     },
   ];
 
-
   useEffect(() => {
     console.log(photoData);
-    // console.log(`/photos/${photoData.slug}`);
-    // console.log(`topic: ${photoData.topics[0].title}`);
+    // console.log(relatedData);
 
     return () => {
       console.log("cleanup");
@@ -103,8 +97,6 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
   return (
     <Layout slug={photoData.slug} title="Photos">
       <Nav photo={photoData}></Nav>
-
-      {/* slug detail component begins here (extract to own module) */}
 
       <div className="">
         <Image
@@ -177,22 +169,11 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
         <TagList btns={photoData.tags}></TagList>
       </div>
 
-   
+      <div className="mx-auto mt-10 max-w-[1300px] lg:mt-20">
+        <h2 className="text-xl font-bold lg:text-2xl">Related Images</h2>
 
-      <div className="max-w-[1300px] mx-auto mt-10 lg:mt-20">
-
-      <h2 className="font-bold text-xl lg:text-2xl">Related Images</h2>
-        
-        {/* {photoData.tags.length > 0 ? (
-          <Similar relatedPhoto={photoData.tags[0].title}></Similar>
-        ) : ( 
-          <div>No related photos found</div>
-        )} */}
-
-      {/* <Similar relatedPhoto={photoData.topics[0].title}></Similar> */}
-
+        <Similar related={relatedData}></Similar>
       </div>
-
     </Layout>
   );
 };
@@ -200,29 +181,27 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params!;
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-  const url = `https://api.unsplash.com/photos/${id}?client_id=${apiKey}`;
-  const url2 = `https://api.unsplash.com/search/photos?query=${id}&per_page=10&client_id=${apiKey}`;
 
-  try {
-    // const response = await fetch(url);
-    // const data = await response.json();
+  const mainImageResponse = await axios.get(
+    `https://api.unsplash.com/photos/${id}?client_id=${apiKey}`,
+  );
 
-    const [response, response2] = await Promise.all([fetch(url), fetch(url2)]);
+  const photoData = mainImageResponse.data;
 
-    const data1 = await response.json();
-    const data2 = await response2.json();
+  const relatedKeyWord = photoData.tags[0].title || "dog";
 
-    return {
-      props: {
-        photoData: data1,
-        photoData2: data2.results,
-      },
-    };
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
+  const relatedImagesReponse = await axios.get(
+    `https://api.unsplash.com/search/photos?query=${relatedKeyWord}&per_page=10&client_id=${apiKey}`,
+  );
+
+  const relatedData = relatedImagesReponse.data.results;
+
+  return {
+    props: {
+      photoData,
+      relatedData,
+    },
+  };
 };
 
 export default PhotoDetailPage;

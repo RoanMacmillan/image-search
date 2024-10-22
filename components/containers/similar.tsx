@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Overlay from "./image-overlay";
 
 interface SimilarProps {
-  relatedPhoto: string;
+  related: UnsplashImage[];
 }
 
 interface UnsplashImage {
@@ -16,7 +16,6 @@ interface UnsplashImage {
 
   description: string | null;
   alt_description: string;
-  tags: [];
   urls: {
     small: string;
     full: string;
@@ -35,34 +34,14 @@ interface UnsplashImage {
   };
 }
 
-const Similar: React.FC<SimilarProps> = ({relatedPhoto}) => {
-  const [state, setState] = useState<UnsplashImage[]>([]);
+const Similar: React.FC<SimilarProps> = ({related}) => {
 
-  useEffect(() => {
-    fetchSimilarPhotos();
-  }, []);
-
-  const fetchSimilarPhotos = async () => {
-  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-    
-    try {
-      const response = await fetch(
-        `https://api.unsplash.com/search/photos?query=${relatedPhoto}&per_page=10&client_id=${apiKey}`,
-      );
-      const data = await response.json();
-      setState(data.results);
-    console.log(data); 
-
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
 
     <ul className="mx-auto md:columns-2  lg:columns-3 lg:gap-6">
 
-    {state.map((item: UnsplashImage) => (
+    {related.map((item: UnsplashImage) => (
 
       <li key={item.id}>
 
