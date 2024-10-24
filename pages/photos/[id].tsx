@@ -86,7 +86,7 @@ const PhotoDetailPage: React.FC<PhotoDetailPageProps> = ({
   ];
 
   useEffect(() => {
-    console.log(photoData);
+    // console.log(photoData);
     // console.log(relatedData);
 
     return () => {
@@ -189,6 +189,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const photoData = mainImageResponse.data;
 
   const relatedKeyWord = photoData.tags[0].title || "dog";
+  console.log('Related Keyword:', relatedKeyWord);
 
   const relatedImagesReponse = await axios.get(
     `https://api.unsplash.com/search/photos?query=${relatedKeyWord}&per_page=10&client_id=${apiKey}`,
@@ -205,3 +206,68 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default PhotoDetailPage;
+
+
+
+
+
+
+
+// import { GetServerSideProps } from 'next';
+// import axios from 'axios';
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const { id } = context.params!;
+//   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+
+//   try {
+//     // Fetch main image
+//     const mainImageResponse = await axios.get(
+//       `https://api.unsplash.com/photos/${id}?client_id=${apiKey}`
+//     );
+//     const photoData = mainImageResponse.data;
+
+//     // Fallback if there are no tags on the main photo
+//     const relatedKeyWord = photoData.tags.length > 0 ? photoData.tags[0].title : 'dog';
+
+//     // Fetch related images based on the keyword
+//     const relatedImagesResponse = await axios.get(
+//       `https://api.unsplash.com/search/photos?query=${relatedKeyWord}&per_page=10&client_id=${apiKey}`
+//     );
+//     const relatedData = relatedImagesResponse.data.results;
+
+//     return {
+//       props: {
+//         photoData,
+//         relatedData,
+//       },
+//     };
+//   } catch (error) {
+//     console.error('Error fetching data from Unsplash API:', error.message);
+
+//     // Optional: Customize error handling behavior
+//     if (error.response) {
+//       // The server responded with a status other than 2xx
+//       console.error('Error Response Data:', error.response.data);
+//     } else if (error.request) {
+//       // The request was made, but no response was received
+//       console.error('No response received:', error.request);
+//     } else {
+//       // Some other error occurred
+//       console.error('Error Message:', error.message);
+//     }
+
+//     // Option 1: Return a 404 page if the image is not found or an error occurs
+//     return {
+//       notFound: true, // Will render the 404 page
+//     };
+
+//     // Option 2: You could return fallback data if needed
+//     // return {
+//     //   props: {
+//     //     photoData: null,
+//     //     relatedData: [],
+//     //   },
+//     // };
+//   }
+// };

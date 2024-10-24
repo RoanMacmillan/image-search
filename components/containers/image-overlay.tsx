@@ -13,6 +13,7 @@ interface OverlayProps {
   name: string;
   imgName: string;
   accountName: string;
+  userSlug?: string;
 }
 
 const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, imgName, accountName }) => {
@@ -46,11 +47,11 @@ const Overlay: React.FC<OverlayProps> = ({ imgSrc, slugUrl, name, avatarSrc, img
         </div>
 
 
-        <div className="flex items-center gap-2">
+        <Link href={`/user/${accountName}`} className="flex items-center gap-2">
         <AvatarDemo img={avatarSrc}></AvatarDemo>
 
         <span className="text-white font-medium pointer-events-auto">{name}</span>
-        </div>
+        </Link>
       </div>
  
       

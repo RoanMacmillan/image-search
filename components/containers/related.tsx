@@ -36,6 +36,7 @@ const Related: React.FC<RelatedProps> = ({ images }) => {
             imgName={item.alt_description}
             accountName={item.user.username}
             slugUrl={item.slug}
+            
           ></Overlay>
           <div className="flex justify-between md:hidden mt-3">
           <Favourite item={item.id}></Favourite>

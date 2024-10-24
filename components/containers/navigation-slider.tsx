@@ -38,7 +38,6 @@ const NavigationSlider = () => {
             >
               {item}
 
-              {/* {activeLink === item && <div className="w-4 h-1 bg-red-400"></div>} */}
             </Link>
           ))}
         </ul>
@@ -64,4 +63,4 @@ export default NavigationSlider;
 
 
 
-const mainBtns = ["Photos", "Illustrations", "Featured"];
+const mainBtns = ["Photos", "Illustrations", "Halloween"];
