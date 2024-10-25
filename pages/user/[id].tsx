@@ -9,10 +9,12 @@ import { capitalizeFirstLetter } from "@/utils/capitilize";
 import { Button } from "@/components/ui/button";
 import Overlay from "@/components/containers/image-overlay";
 import TagList from "@/components/containers/tags";
+import { Separator } from "@/components/ui/separator";
+import TabsDemo from "@/components/containers/user-tabs";
 
 interface UserProps {
   userData: User;
-    userPhotosData: Photos[];
+  userPhotosData: Photos[];
 }
 
 interface User {
@@ -23,14 +25,15 @@ interface User {
   location: string;
   tags: Tags;
   username: string;
-  photos: Photos[]; 
+  photos: Photos[];
   bio: string;
   twitter_username: string;
-    instagram_username: string;
-    portfolio_url: string;
+  instagram_username: string;
+  portfolio_url: string;
+  likes: string[];
 }
 
-interface Photos {
+export interface Photos {
   id: string;
   urls: {
     regular: string;
@@ -39,10 +42,9 @@ interface Photos {
   user: {
     name: string;
     username: string;
-    profile_image: { small: string; large: string; };
+    profile_image: { small: string; large: string };
   };
   slug: string;
-
 }
 
 interface Tags {
@@ -53,85 +55,78 @@ interface CustomTags {
   title: string;
 }
 
-
-
 const UserPage: React.FC<UserProps> = ({ userData, userPhotosData }) => {
   useEffect(() => {
     console.log(userData);
-    console.log(userPhotosData);
+    // console.log(userPhotosData);
+    console.log(userData.username);
   }, []);
 
   return (
-      <Layout title={`${userData.name}`}>
-        <Nav></Nav>
+    <Layout title={`${userData.name}`}>
+      <Nav></Nav>
 
-        <div className="items-start justify-center gap-6 md:flex mt-10 lg:mt-16 lg:gap-10">
-          <Image
-            src={userData.profile_image.large}
-            alt={userData.name}
-            width={100}
-            height={100}
-            className="rounded-full"
-          ></Image>
+      <div className="mt-10 items-start justify-center gap-6 md:flex lg:mt-16 lg:gap-10">
+        <Image
+          src={userData.profile_image.large}
+          alt={userData.name}
+          width={100}
+          height={100}
+          className="rounded-full"
+        ></Image>
 
-          <div>
-            <h1 className="text-3xl font-semibold mt-5 md:mt-0 lg:text-5xl">{`${capitalizeFirstLetter(userData.first_name)} ${capitalizeFirstLetter(userData.last_name)}`}</h1>
-            <p className="mt-3">
-              {userData.bio || "No bio available for this user."}
-            </p>
+        <div>
+          <h1 className="mt-5 text-3xl font-semibold md:mt-0 lg:text-5xl">{`${capitalizeFirstLetter(userData.first_name)} ${capitalizeFirstLetter(userData.last_name)}`}</h1>
+          <p className="mt-3">
+            {userData.bio ||
+              `Download free high-resolution photos curated by ${userData.username}`}
+          </p>
 
-            <div className="mt-3 flex items-center gap-1">
-              <RiMapPin2Line></RiMapPin2Line>
-              <p>{userData.location || "Unknown"}</p>
-            </div>
-            <div className="flex items-center gap-1">
-              <RiExternalLinkLine></RiExternalLinkLine>
-
-              <p>Connect with {userData.username}</p>
-            </div>
-            <p className="mt-3">Interests</p>
-            {userData.tags.custom.length > 0 ? (
-          
-
-            <div className="mt-4">
-
-            <TagList btns={userData.tags.custom}></TagList>
-
-            </div>
-
-            ) : (
-              <p>No custom tags available.</p>
-            )}
+          <div className="mt-3 flex items-center gap-1">
+            <RiMapPin2Line></RiMapPin2Line>
+            <p>{userData.location || "Unknown"}</p>
           </div>
+          <div className="flex items-center gap-1">
+            <RiExternalLinkLine></RiExternalLinkLine>
+
+            <p>Connect with {userData.username}</p>
+          </div>
+
+
+          <p className="mt-3">Interests</p>
+          {userData.tags.custom.length > 0 ? (
+            <div className="mt-4">
+              <TagList btns={userData.tags.custom}></TagList>
+            </div>
+          ) : (
+            <p>No custom tags available.</p>
+          )}
         </div>
+      </div>
 
-    <ul className="mx-auto mt-16 md:columns-2 lg:columns-3 lg:gap-6">
 
-            {userPhotosData.map((item, index) => (
+      <TabsDemo data={userPhotosData} activeUser={userData.username}></TabsDemo>
 
-                <li key={index}>
 
-                    {/* <h2 className="md:hidden">{item.user.username}</h2> */}
+      {/* <ul className="mx-auto mt-4 md:columns-2 lg:columns-3 lg:gap-6">
+        {userPhotosData.map((item, index) => (
+          <li key={index}>
 
-                {/* <Image alt={item.alt_description} width={800} height={800} src={item.urls.regular}></Image> */}
 
-                <Overlay
-                 imgSrc={item.urls.regular}
-                 imgName={item.id}
-                 avatarSrc={item.user.profile_image.small}
-                 name={item.user.name}
-                 slugUrl={item.slug}
-                 accountName={item.user.username}
-                  ></Overlay>
+            <Overlay
+              imgSrc={item.urls.regular}
+              imgName={item.id}
+              avatarSrc={item.user.profile_image.small}
+              name={item.user.name}
+              slugUrl={item.slug}
+              accountName={item.user.username}
+            ></Overlay>
+          </li>
+        ))}
+      </ul> */}
 
-                </li>
-            ))}
-
-</ul>
-               
-
-        {/* <p>{userData.name}</p> */}
-      </Layout>
+      {/* <p>{userData.name}</p> */}
+    </Layout>
   );
 };
 
@@ -145,13 +140,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     );
     const userData = userResponse.data;
 
-    const userPhotosResponse = await axios.get(`https://api.unsplash.com/users/${id}/photos?client_id=${apiKey}`);
+    const userPhotosResponse = await axios.get(
+      `https://api.unsplash.com/users/${id}/photos?client_id=${apiKey}`,
+    );
 
     const userPhotosData = userPhotosResponse.data;
 
     // console.log(userData);
     // console.log(id);
-    console.log(userPhotosData);
+    // console.log(userPhotosData);
 
     return {
       props: {
