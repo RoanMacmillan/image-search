@@ -31,6 +31,9 @@ interface User {
   instagram_username: string;
   portfolio_url: string;
   likes: string[];
+  total_likes: string;
+  total_photos: string;
+  total_collections: string;
 }
 
 export interface Photos {
@@ -60,6 +63,7 @@ const UserPage: React.FC<UserProps> = ({ userData, userPhotosData }) => {
     console.log(userData);
     // console.log(userPhotosData);
     console.log(userData.username);
+    console.log(userData.total_likes);
   }, []);
 
   return (
@@ -92,7 +96,6 @@ const UserPage: React.FC<UserProps> = ({ userData, userPhotosData }) => {
             <p>Connect with {userData.username}</p>
           </div>
 
-
           <p className="mt-3">Interests</p>
           {userData.tags.custom.length > 0 ? (
             <div className="mt-4">
@@ -105,27 +108,20 @@ const UserPage: React.FC<UserProps> = ({ userData, userPhotosData }) => {
       </div>
 
 
-      <TabsDemo data={userPhotosData} activeUser={userData.username}></TabsDemo>
+
+      <TabsDemo
+        data={userPhotosData}
+        activeUser={userData.username}
+        totalCollections={userData.total_collections}
+        totalLikes={userData.total_likes}
+        totalPhotos={userData.total_photos}
+      ></TabsDemo>
 
 
-      {/* <ul className="mx-auto mt-4 md:columns-2 lg:columns-3 lg:gap-6">
-        {userPhotosData.map((item, index) => (
-          <li key={index}>
 
 
-            <Overlay
-              imgSrc={item.urls.regular}
-              imgName={item.id}
-              avatarSrc={item.user.profile_image.small}
-              name={item.user.name}
-              slugUrl={item.slug}
-              accountName={item.user.username}
-            ></Overlay>
-          </li>
-        ))}
-      </ul> */}
 
-      {/* <p>{userData.name}</p> */}
+
     </Layout>
   );
 };
