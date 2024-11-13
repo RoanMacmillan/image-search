@@ -63,4 +63,4 @@ export default NavigationSlider;
 
 
 
-const mainBtns = ["Photos", "Illustrations", "Halloween"];
+const mainBtns = ["Photos", "Illustrations", "Christmas"];

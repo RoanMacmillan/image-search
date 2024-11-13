@@ -11,13 +11,16 @@ import Overlay from "@/components/containers/image-overlay";
 import TagList from "@/components/containers/tags";
 import { Separator } from "@/components/ui/separator";
 import TabsDemo from "@/components/containers/user-tabs";
-
+import { HoverCardDemo } from "@/components/containers/hover-card";
+import UserProfile from "@/components/containers/user-profile";
+import Link from "next/link";
+import NewTabs from "@/components/containers/new-tabs";
 interface UserProps {
   userData: User;
   userPhotosData: Photos[];
 }
 
-interface User {
+export interface User {
   name: string;
   first_name: string;
   last_name: string;
@@ -34,7 +37,16 @@ interface User {
   total_likes: string;
   total_photos: string;
   total_collections: string;
+  social: {
+    instagram_username: string;
+    twitter_username: string;
+    paypal_email: string;
+    portfolio_url: string;
+
+  }
 }
+
+
 
 export interface Photos {
   id: string;
@@ -70,52 +82,16 @@ const UserPage: React.FC<UserProps> = ({ userData, userPhotosData }) => {
     <Layout title={`${userData.name}`}>
       <Nav></Nav>
 
-      <div className="mt-10 items-start justify-center gap-6 md:flex lg:mt-16 lg:gap-10">
-        <Image
-          src={userData.profile_image.large}
-          alt={userData.name}
-          width={100}
-          height={100}
-          className="rounded-full"
-        ></Image>
 
-        <div>
-          <h1 className="mt-5 text-3xl font-semibold md:mt-0 lg:text-5xl">{`${capitalizeFirstLetter(userData.first_name)} ${capitalizeFirstLetter(userData.last_name)}`}</h1>
-          <p className="mt-3">
-            {userData.bio ||
-              `Download free high-resolution photos curated by ${userData.username}`}
-          </p>
-
-          <div className="mt-3 flex items-center gap-1">
-            <RiMapPin2Line></RiMapPin2Line>
-            <p>{userData.location || "Unknown"}</p>
-          </div>
-          <div className="flex items-center gap-1">
-            <RiExternalLinkLine></RiExternalLinkLine>
-
-            <p>Connect with {userData.username}</p>
-          </div>
-
-          <p className="mt-3">Interests</p>
-          {userData.tags.custom.length > 0 ? (
-            <div className="mt-4">
-              <TagList btns={userData.tags.custom}></TagList>
-            </div>
-          ) : (
-            <p>No custom tags available.</p>
-          )}
-        </div>
-      </div>
+        <UserProfile userData={userData}></UserProfile>
 
 
 
-      <TabsDemo
-        data={userPhotosData}
-        activeUser={userData.username}
-        totalCollections={userData.total_collections}
-        totalLikes={userData.total_likes}
-        totalPhotos={userData.total_photos}
-      ></TabsDemo>
+        <NewTabs userData={userData}></NewTabs>
+
+
+
+      {/*  */}
 
 
 

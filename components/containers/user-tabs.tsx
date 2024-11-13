@@ -38,7 +38,10 @@ const TabsDemo: React.FC<TabsProps> = ({
   const [likeData, setLikeData] = useState<Photos[]>([]);
 
   useEffect(() => {
-    console.log(`total likes: ${totalLikes}`);
+    // console.log(`total likes: ${totalLikes}`);
+    // console.log(`active tab: ${activeTab}`);
+    console.log(likeData)
+    console.log('test')
   }, []);
 
   const fetchData = async () => {
@@ -50,8 +53,8 @@ const TabsDemo: React.FC<TabsProps> = ({
       );
 
       const likesData = response.data;
-      console.log("fetching...");
-      console.log(likesData);
+      // console.log("fetching...");
+      // console.log(likesData);
       setLikeData(likesData);
     } catch (error) {
       console.log(error);

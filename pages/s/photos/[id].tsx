@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import Layout from "@/components/containers/layout";
 import Nav from "@/components/containers/nav";
 import { capitalizeFirstLetter } from "@/utils/capitilize";
-import BlurFade from "../../../components/animations/blurfade";
-import { Button } from "@/components/ui/button";
-import { getRelatedWords } from "@/lib/getRelatedWords";
 import Overlay from "@/components/containers/image-overlay";
-import { Toaster } from "@/components/ui/toaster";
+import { SelectDemo } from "@/components/containers/search-filter";
+import { Button } from "@/components/ui/button";
 
 export interface UnsplashImage {
   id: string;
@@ -34,9 +30,9 @@ export interface UnsplashImage {
   width: number;
   height: number;
   slug: string;
- 
+  likes: number;
+  created_at: string;
 }
-
 
 interface PhotoDetailProps {
   photoData: UnsplashImage[];
@@ -44,20 +40,79 @@ interface PhotoDetailProps {
   slug: string;
 }
 
-
-
 const PhotoDetail: React.FC<PhotoDetailProps> = ({
   photoData,
   error,
   slug,
 }) => {
+  const [filteredImages, setFilteredImages] =
+    useState<UnsplashImage[]>(photoData);
+  const [activeBtn, setActiveBtn] = useState("all");
+  const [activeSort, setActiveSort] = useState("Newest");
+
+  const landScapeState = photoData.filter((item) => item.width > item.height);
+  const portraitState = photoData.filter((item) => item.width < item.height);
+
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+  const n = [2, 1, 5, 4, 9, 1];
 
 
-  useEffect(() => {
-    console.log(photoData);
-  }, []);
+  const handleCalc = () => {
+
+    n.sort((a, b) => b - a);
+    console.log(n)
+
+  }
 
   
+  
+
+  useEffect(() => {
+
+    console.log(photoData);
+    // console.log(filteredImages);
+
+    const x = photoData.map((item) => item.description);
+
+
+
+  }, []);
+
+  const handleFilter = (value: string) => {
+    setActiveBtn(value);
+    console.log(value);
+
+    if (value === "Landscape") {
+      setFilteredImages(landScapeState);
+    } else if (value === "Portrait") {
+      setFilteredImages(portraitState);
+    } else {
+      setFilteredImages(photoData);
+    }
+  };
+
+  const handleSort = (value: string) => {
+    const sortByLikes = [...filteredImages].sort((a, b) => b.likes - a.likes);
+    const sortByNewest = [...filteredImages].sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    );
+
+    const sortByRelevance = [...filteredImages].sort((a, b) => b.width - a.width);
+
+    setActiveSort(value);
+    console.log(value);
+
+    if (value === "Popular") {
+      setFilteredImages(sortByLikes);
+    } else if (value === "Newest") {
+      // setFilteredImages(sortByNewest);
+      setFilteredImages(sortByNewest)
+    } else {
+      setFilteredImages(sortByRelevance);
+    }
+  };
 
   if (error) {
     return <div>{error}</div>;
@@ -68,14 +123,26 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
       <Layout title="search">
         <Nav></Nav>
 
-        <div className="mt-6  w-full overflow-hidden">
+        <div className="mt-6 flex w-full justify-between">
           <h1 className="text-3xl font-bold">{capitalizeFirstLetter(slug)}</h1>
-       
+
+          <div className="hidden items-center gap-2 lg:flex">
+            <SelectDemo
+              filterType="sort"
+              placeholder="Sort by: Relevance"
+              valueChange={handleSort}
+            ></SelectDemo>
+            <SelectDemo
+              filterType="orientation"
+              placeholder="Orientation: All"
+              valueChange={handleFilter}
+            ></SelectDemo>
+          </div>
         </div>
 
         <ul className="mx-auto mt-0 md:columns-2 lg:mt-2 lg:columns-3 lg:gap-6">
           {photoData.length > 0 &&
-            photoData.map((item) => (
+            filteredImages.map((item) => (
               <li key={item.id} className="">
                 {/* {loading ?   (   <div className="bg-red-500" style={{ width: `${item.width}px`, height: `${item.height}px` }}> */}
                 {/* </div> */}
@@ -105,11 +172,6 @@ const PhotoDetail: React.FC<PhotoDetailProps> = ({
               </li>
             ))}
         </ul>
-
-
-           
-
-
       </Layout>
     </>
   );
@@ -127,7 +189,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const data = await response.json();
     console.log(data);
     return {
-      props: { 
+      props: {
         photoData: data.results,
         error: null,
         slug: id,
@@ -143,5 +205,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
-
-
