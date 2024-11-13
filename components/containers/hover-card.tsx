@@ -45,7 +45,7 @@ export function HoverCardDemo({ userData }: HoverCardProps) {
           <CaretDownIcon className="ml-1 h-4 w-4" />
         </Button>
       </HoverCardTrigger>
-      <HoverCardContent className="w-48">
+      <HoverCardContent className="">
         <ul>
           {socials.map((social) => (
             <li className={social.id === 2 ? 'my-3' : ''} key={social.id}>

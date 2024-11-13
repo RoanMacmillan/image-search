@@ -10,40 +10,51 @@ import Image from "next/image";
 import NewTabs from "@/components/containers/new-tabs";
 import Overlay from "@/components/containers/image-overlay";
 
-interface LikesProps {
+interface CollectionsProps {
   userData: User;
-  likesData: Photos[];
+  collectionsData: Collections[];
 }
 
-const UserLikes: React.FC<LikesProps> = ({ userData, likesData }) => {
+interface Collections {
+
+    title: string;
+    id: number;
+
+}
+
+const Collections: React.FC<CollectionsProps> = ({
+  collectionsData,
+  userData,
+}) => {
   useEffect(() => {
-    console.log(likesData);
+    console.log(collectionsData);
   }, []);
 
   return (
     <>
-      <Layout title={`${userData.first_name}'s likes`}>
+      <Layout title={`Likes`}>
         <Nav></Nav>
-        <UserProfile userData={userData}></UserProfile>
-
-        
+        {/* <UserProfile userData={userData}></UserProfile> */}
 
         <NewTabs userData={userData}></NewTabs>
 
         <ul className="mx-auto mt-4 md:columns-2 lg:columns-3 lg:gap-6">
-          {likesData.map((item) => (
+
+
+        {collectionsData.map((item) => (
+
             <li key={item.id}>
-              <Overlay
-                imgSrc={item.urls.regular}
-                imgName={item.id}
-                avatarSrc={item.user.profile_image.small}
-                name={item.user.name}
-                slugUrl={item.slug}
-                accountName={item.user.username}
-              ></Overlay>
+
+            <h1>{item.title}</h1>
+
+
             </li>
-          ))}
-        </ul>
+
+        ))}
+
+    </ul>
+
+
       </Layout>
     </>
   );
@@ -51,30 +62,30 @@ const UserLikes: React.FC<LikesProps> = ({ userData, likesData }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params!;
-
   const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  const perPage = 5;
 
   try {
+    const collectionsResponse = await axios.get(
+      `https://api.unsplash.com/users/${id}/collections?client_id=${apiKey}&per_page=${perPage}`,
+    );
+
+    const collectionsData = collectionsResponse.data;
+
     const userResponse = await axios.get(
       `https://api.unsplash.com/users/${id}?client_id=${apiKey}`,
     );
 
-    const likesResponse = await axios.get(
-      `https://api.unsplash.com/users/${id}/likes?client_id=${apiKey}`,
-    );
-
     const userData = userResponse.data;
-
-    const likesData = likesResponse.data;
 
     return {
       props: {
+        collectionsData,
         userData,
-        likesData,
       },
     };
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     return {
       props: {},
@@ -82,4 +93,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-export default UserLikes;
+export default Collections;

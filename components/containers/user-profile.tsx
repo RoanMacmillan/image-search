@@ -27,7 +27,7 @@ const UserProfile: React.FC<UserProfileProps> = ({userData}) => {
 
         <div>
           <h1 className="mt-5 text-3xl font-semibold md:mt-0 lg:text-5xl">{`${capitalizeFirstLetter(userData.first_name)} ${capitalizeFirstLetter(userData.last_name)}`}</h1>
-          <p className="mt-3">
+          <p className="mt-3 max-w-[500px]">
             {userData.bio ||
               `Download free high-resolution photos curated by ${userData.username}`}
           </p>

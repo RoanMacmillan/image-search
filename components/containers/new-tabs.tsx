@@ -52,16 +52,19 @@ const NewTabs: React.FC<NewTabsProps> = ({ userData }) => {
             <li key={item.id}>
               <Link
                 href={`/user/${userData.username.toLowerCase()}${item.url}`}
-                className={`${isActive(`/user/${userData.username.toLowerCase()}${item.url}`) ? "text-neutral-950" : ""} text-gray-400 flex items-center gap-2 transition-colors hover:text-neutral-950`}
+                className={`${isActive(`/user/${userData.username.toLowerCase()}${item.url}`) ? "text-neutral-950" : ""} flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-neutral-950`}
               >
                 <span className="hidden md:block">{item.icon}</span>
-                <span>{capitalizeFirstLetter(item.name)}</span>
+                <div className="flex items-center gap-1">
+                  <span>{capitalizeFirstLetter(item.name)}</span>
+                  <span className="hidden md:block">({item.total})</span>
+                </div>
               </Link>
             </li>
           ))}
         </ul>
 
-        <Separator className="w-full mt-4"></Separator>
+        <Separator className="mt-4 w-full"></Separator>
       </div>
     </>
   );

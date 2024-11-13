@@ -88,6 +88,26 @@ const UserPage: React.FC<UserProps> = ({ userData, userPhotosData }) => {
 
 
         <NewTabs userData={userData}></NewTabs>
+      {userPhotosData.length === 0 ? (
+        <p>Nothing to see here</p>
+      ) : (
+        <ul className="mx-auto mt-4 md:columns-2 lg:columns-3 lg:gap-6">
+          {userPhotosData.map((item) => (
+            <li key={item.id}>
+              <Overlay
+                imgSrc={item.urls.regular}
+                imgName={item.id}
+                avatarSrc={item.user.profile_image.small}
+                name={item.user.name}
+                slugUrl={item.slug}
+                accountName={item.user.username}
+              ></Overlay>
+            </li>
+          ))}
+        </ul>
+      )}
+
+        
 
 
 
