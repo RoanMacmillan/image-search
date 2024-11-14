@@ -9,17 +9,27 @@ import { Photos } from "@/pages/user/[id]";
 import Image from "next/image";
 import NewTabs from "@/components/containers/new-tabs";
 import Overlay from "@/components/containers/image-overlay";
+import CollectionsContainer from "@/components/containers/collection-container";
 
 interface CollectionsProps {
   userData: User;
   collectionsData: Collections[];
 }
 
-interface Collections {
+export interface Collections {
+  title: string;
+  id: number;
+  preview_photos: Previews[];
+}
 
-    title: string;
-    id: number;
-
+interface Previews {
+  id: string;
+  slug: string;
+  urls: {
+    regular: string;
+    small: string;
+  };
+  height: number;
 }
 
 const Collections: React.FC<CollectionsProps> = ({
@@ -32,29 +42,13 @@ const Collections: React.FC<CollectionsProps> = ({
 
   return (
     <>
-      <Layout title={`Likes`}>
+      <Layout title={`${userData.first_name}'s collections`}>
         <Nav></Nav>
         {/* <UserProfile userData={userData}></UserProfile> */}
 
         <NewTabs userData={userData}></NewTabs>
 
-        <ul className="mx-auto mt-4 md:columns-2 lg:columns-3 lg:gap-6">
-
-
-        {collectionsData.map((item) => (
-
-            <li key={item.id}>
-
-            <h1>{item.title}</h1>
-
-
-            </li>
-
-        ))}
-
-    </ul>
-
-
+        <CollectionsContainer collectionData={collectionsData}></CollectionsContainer>
       </Layout>
     </>
   );
