@@ -20,6 +20,18 @@ export interface Collections {
   title: string;
   id: number;
   preview_photos: Previews[];
+  total_photos: number;
+  tags: Tags[];
+  user: {
+
+    name: string;
+    username: string;
+  }
+}
+
+interface Tags {
+
+    title: string;
 }
 
 interface Previews {

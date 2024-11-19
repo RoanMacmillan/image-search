@@ -2,6 +2,8 @@ import React from "react";
 import { Collections } from "@/pages/user/[id]/collections";
 import Image from "next/image";
 import Link from "next/link";
+import { capitalizeFirstLetter } from "@/utils/capitilize";
+import { Button } from "../ui/button";
 
 interface CollectionsProps {
   collectionData: Collections[];
@@ -36,33 +38,59 @@ const CollectionsContainer: React.FC<CollectionsProps> = ({
         ))}
       </ul> */}
 
-      <ul className="mx-auto mt-4 md:columns-2 lg:columns-3 space-y-6 lg:space-y-0 gap-6">
+      <ul className="mx-auto mt-4 grid sm:grid-cols-2 sm:gap-4 lg:gap-6 lg:grid-cols-3">
         {collectionData.map((item) => (
-          <div className="as flex w-full gap-1 overflow-hidden rounded-md">
-            <div className="relative w-[70%]" key={item.id}>
-              <Link href={`/collection/${item.id}`}>
+          <div className="mb-10 sm:mb-0" key={item.id}>
+            <div className="as flex w-full gap-1 overflow-hidden rounded-md hover:opacity-80">
+              <div className="relative w-[70%]">
                 <Image
                   src={item.preview_photos[0].urls.regular}
                   alt={item.preview_photos[0].id}
                   fill={true}
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 ></Image>
-              </Link>
-            </div>
+              </div>
 
-            <div className="flex w-[30%] flex-col gap-1">
-              {item.preview_photos.slice(1, 3).map((photo, index) => (
-                <div key={index} className="relative flex-grow">
-                  <Link href={`/collection/${item.id}`}>
+              <div className="flex w-[30%] flex-col gap-1">
+                {item.preview_photos.slice(1, 3).map((photo, index) => (
+                  <div key={index} className="relative flex-grow">
                     <Image
                       src={photo.urls.regular}
                       alt={photo.id}
                       fill={true}
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     ></Image>
-                  </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-3">
+              <h1 className="text-lg font-semibold">{item.title}</h1>
+              <div className="text-sm flex items-center gap-1">
+                <p>{item.total_photos} images</p>
+                <p>-</p>
+                <p>Created by {item.user.name}</p>
+              </div>
+
+              {item.tags.length > 0 ? (
+                <div className="flex items-center gap-1 mt-2">
+                  {item.tags.slice(1, 4).map((tag, index) => (
+                    <Button
+                      className="h-7 text-sm px-[12px]"
+                      size={"default"}
+                      variant={"secondary"}
+                      key={index}
+                    >
+                      {capitalizeFirstLetter(tag.title)}
+                    </Button>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <p>No tags available</p>
+              )}
             </div>
           </div>
         ))}
