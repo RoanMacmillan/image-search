@@ -30,6 +30,8 @@ const UserLikes: React.FC<LikesProps> = ({ userData, likesData }) => {
 
         <NewTabs userData={userData}></NewTabs>
 
+        {likesData.length === 0 && <p>No likes available.</p>}
+
         <ul className="mx-auto mt-4 md:columns-2 lg:columns-3 lg:gap-6">
           {likesData.map((item) => (
             <li key={item.id}>

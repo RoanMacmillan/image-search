@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Collections } from "@/pages/user/[id]/collections";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,35 +14,25 @@ const CollectionsContainer: React.FC<CollectionsProps> = ({
 }) => {
   const classNames = ["div1", "div2", "div3"];
 
+  useEffect(() => {
+
+
+    // console.log(collectionData.map((item) => item.preview_photos.length));
+    console.log(collectionData);
+
+  }, []);
+
   return (
     <>
-      {/* <ul className="mx-auto mt-4 md:columns-2 lg:columns-3 lg:gap-6">
-        {collectionData.map((item) => (
-          <li className="" key={item.id}>
-            <Link href="" className="parent overflow-hidden rounded-md">
-              {item.preview_photos.slice(1, 3).map((photo, index) => (
-                <div
-                  key={index}
-                  className={`${classNames[index]} relative bg-red-200`}
-                >
-                  <Image
-                    src={photo.urls.regular}
-                    alt={photo.id}
-                    fill={true}
-                    className="object-cover"
-                  ></Image>
-                </div>
-              ))}
-            </Link>
-          </li>
-        ))}
-      </ul> */}
+    
 
-      <ul className="mx-auto mt-4 grid sm:grid-cols-2 sm:gap-4 lg:gap-6 lg:grid-cols-3">
-        {collectionData.map((item) => (
+      {collectionData.length === 0 && <p>No collections available</p>}
+
+      <ul className="mx-auto mt-4 grid sm:grid-cols-2 lg:mt-10 sm:gap-4 lg:gap-6 pb-10 lg:grid-cols-3">
+        {collectionData.slice(0, 3).map((item) => (
           <div className="mb-10 sm:mb-0" key={item.id}>
-            <div className="as flex w-full gap-1 overflow-hidden rounded-md hover:opacity-80">
-              <div className="relative w-[70%]">
+            <Link href={`/collections/${item.id}`} className="as flex w-full gap-1 overflow-hidden rounded-md hover:opacity-80">
+              <div className={`relative w-[70%]`}>
                 <Image
                   src={item.preview_photos[0].urls.regular}
                   alt={item.preview_photos[0].id}
@@ -53,19 +43,22 @@ const CollectionsContainer: React.FC<CollectionsProps> = ({
               </div>
 
               <div className="flex w-[30%] flex-col gap-1">
-                {item.preview_photos.slice(1, 3).map((photo, index) => (
-                  <div key={index} className="relative flex-grow">
-                    <Image
-                      src={photo.urls.regular}
-                      alt={photo.id}
-                      fill={true}
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    ></Image>
-                  </div>
-                ))}
-              </div>
-            </div>
+    {Array.from({ length: 2 }).map((_, index) => {
+      const photo = item.preview_photos[index + 1]; // Get the second and third images if they exist
+      return (
+        <div key={index} className="relative flex-grow">
+          <Image
+            src={photo?.urls.regular || placeholder}
+            alt={photo?.id || "Placeholder"}
+            fill={true}
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+      );
+    })}
+  </div>
+            </Link>
 
             <div className="mt-3">
               <h1 className="text-lg font-semibold">{item.title}</h1>
@@ -93,6 +86,8 @@ const CollectionsContainer: React.FC<CollectionsProps> = ({
               )}
             </div>
           </div>
+
+
         ))}
       </ul>
 
@@ -128,9 +123,12 @@ const CollectionsContainer: React.FC<CollectionsProps> = ({
           </div>
         </div>
       </div> */}
+
     </>
   );
 };
+
+const placeholder = 'https://www.svgrepo.com/show/508699/landscape-placeholder.svg';
 
 const images = [
   "https://images.unsplash.com/photo-1512737594936-baf87e4b0924?w=294&dpr=2&h=294&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXRodW1ibmFpbHx8OTkyMDYxfHxlbnwwfHx8fHw%3D",

@@ -56,7 +56,7 @@ const Collections: React.FC<CollectionsProps> = ({
     <>
       <Layout title={`${userData.first_name}'s collections`}>
         <Nav></Nav>
-        {/* <UserProfile userData={userData}></UserProfile> */}
+        <UserProfile userData={userData}></UserProfile>
 
         <NewTabs userData={userData}></NewTabs>
 
