@@ -55,6 +55,8 @@ const TabsDemo: React.FC<TabsProps> = ({
       const likesData = response.data;
       // console.log("fetching...");
       // console.log(likesData);
+      
+      
       setLikeData(likesData);
     } catch (error) {
       console.log(error);
