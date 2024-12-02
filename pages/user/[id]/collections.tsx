@@ -26,7 +26,11 @@ export interface Collections {
 
     name: string;
     username: string;
+    profile_image: { 
+      small: string;
+    }
   }
+  description: string;
 }
 
 interface Tags {
